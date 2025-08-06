@@ -1,5 +1,5 @@
 {
-  "name": "@documenso/remix",
+  "name": "@tiquo/remix",
   "private": true,
   "type": "module",
   "scripts": {
@@ -14,15 +14,15 @@
     "with:env": "dotenv -e ../../.env -e ../../.env.local --"
   },
   "dependencies": {
-    "@documenso/api": "*",
-    "@documenso/assets": "*",
-    "@documenso/auth": "*",
-    "@documenso/ee": "*",
-    "@documenso/lib": "*",
-    "@documenso/prisma": "*",
-    "@documenso/tailwind-config": "*",
-    "@documenso/trpc": "*",
-    "@documenso/ui": "*",
+    "@tiquo/api": "*",
+    "@tiquo/assets": "*",
+    "@tiquo/auth": "*",
+    "@tiquo/ee": "*",
+    "@tiquo/lib": "*",
+    "@tiquo/prisma": "*",
+    "@tiquo/tailwind-config": "*",
+    "@tiquo/trpc": "*",
+    "@tiquo/ui": "*",
     "@epic-web/remember": "^1.1.0",
     "@hono/node-server": "^1.13.7",
     "@hono/trpc-server": "^0.3.4",

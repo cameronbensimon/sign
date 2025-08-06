@@ -40,7 +40,7 @@ export const DocumentCompletedEmailTemplate = ({
               ) : (
                 <Img
                   src={getAssetUrl('/static/logo.png')}
-                  alt="Documenso Logo"
+                  alt="tiquo Logo"
                   className="mb-4 h-6"
                 />
               )}

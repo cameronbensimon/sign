@@ -38,7 +38,7 @@ export default defineConfig({
     external: [
       '@node-rs/bcrypt',
       '@prisma/client',
-      '@documenso/tailwind-config',
+      '@tiquo/tailwind-config',
       'playwright',
       'playwright-core',
       '@playwright/browser-chromium',
@@ -50,7 +50,7 @@ export default defineConfig({
     exclude: [
       'node_modules',
       '@node-rs/bcrypt',
-      '@documenso/pdf-sign',
+      '@tiquo/pdf-sign',
       'sharp',
       'playwright',
       'playwright-core',
@@ -80,7 +80,7 @@ export default defineConfig({
     rollupOptions: {
       external: [
         '@node-rs/bcrypt',
-        '@documenso/pdf-sign',
+        '@tiquo/pdf-sign',
         '@aws-sdk/cloudfront-signer',
         'nodemailer',
         /playwright/,

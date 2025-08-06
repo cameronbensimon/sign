@@ -1,5 +1,5 @@
 {
-  "name": "@documenso/signing",
+  "name": "@tiquo/signing",
   "version": "0.0.0",
   "main": "./index.ts",
   "types": "./index.ts",
@@ -12,8 +12,8 @@
     "test": "vitest"
   },
   "dependencies": {
-    "@documenso/tsconfig": "*",
-    "@documenso/pdf-sign": "^0.1.0",
+    "@tiquo/tsconfig": "*",
+    "@tiquo/pdf-sign": "^0.1.0",
     "pdf-lib": "^1.17.1",
     "ts-pattern": "^5.0.5"
   },
