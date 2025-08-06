@@ -5,33 +5,40 @@ export type LogoProps = SVGAttributes<SVGSVGElement>;
 export const BrandingLogo = ({ ...props }: LogoProps) => {
   return (
     <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 361.11 142.32" {...props}>
+      <defs>
+        <style>
+          {`
+            .cls-1 {
+              font-family: Inter-Regular, Inter;
+              font-size: 120px;
+              font-variation-settings: 'opsz' 14, 'wght' 400;
+              letter-spacing: -.1em;
+            }
+
+            .cls-2 {
+              fill: none;
+              stroke: currentColor;
+              stroke-miterlimit: 10;
+              stroke-width: 7px;
+            }
+          `}
+        </style>
+      </defs>
       <g>
         <path
-          fill="none"
-          stroke="currentColor"
-          strokeMiterlimit="10"
-          strokeWidth="7"
+          className="cls-2"
           d="M104.55,70.38c0,17.35-14.06,31.41-31.41,31.41-2.82,0-5.55-.37-8.15-1.07.87-2.87,1.33-5.91,1.33-9.06,0-8.21-3.15-15.68-8.31-21.27,5.16-5.59,8.31-13.08,8.31-21.29,0-3.15-.46-6.19-1.33-9.06,2.6-.7,5.33-1.07,8.15-1.07,17.35,0,31.41,14.07,31.41,31.41Z"
         />
         <path
-          fill="none"
-          stroke="currentColor"
-          strokeMiterlimit="10"
-          strokeWidth="7"
+          className="cls-2"
           d="M64.99,100.72c-3.88,12.93-15.88,22.35-30.08,22.35-17.34,0-31.41-14.06-31.41-31.41,0-8.21,3.15-15.68,8.31-21.27,5.75,6.22,13.97,10.12,23.1,10.12,2.82,0,5.55-.37,8.15-1.07,3.11,10.37,11.44,18.47,21.93,21.28Z"
         />
         <path
-          fill="none"
-          stroke="currentColor"
-          strokeMiterlimit="10"
-          strokeWidth="7"
+          className="cls-2"
           d="M58.01,70.39c5.16,5.59,8.31,13.06,8.31,21.27,0,3.15-.46,6.19-1.33,9.06-10.49-2.81-18.82-10.91-21.93-21.28-2.6.7-5.33,1.07-8.15,1.07-9.13,0-17.35-3.9-23.1-10.12,5.74-6.23,13.97-10.13,23.1-10.13,2.82,0,5.55.37,8.14,1.07,3.12-10.36,11.44-18.48,21.94-21.29.87,2.87,1.33,5.91,1.33,9.06,0,8.21-3.15,15.7-8.31,21.29Z"
         />
         <path
-          fill="none"
-          stroke="currentColor"
-          strokeMiterlimit="10"
-          strokeWidth="7"
+          className="cls-2"
           d="M64.99,40.04c-10.5,2.81-18.82,10.93-21.94,21.29-2.59-.7-5.32-1.07-8.14-1.07-9.13,0-17.36,3.9-23.1,10.13-5.15-5.59-8.31-13.08-8.31-21.29,0-17.35,14.07-31.41,31.41-31.41,14.2,0,26.2,9.42,30.08,22.35Z"
         />
       </g>
