@@ -7,7 +7,7 @@ import { Callout, Steps } from 'nextra/components';
 
 # API Reference
 
-The Swagger UI for the API is available at [/api/v1/openapi](https://app.documenso.com/api/v1/openapi). This page provides detailed information about the API endpoints, request and response formats, and authentication requirements.
+The Swagger UI for the API is available at [/api/v1/openapi](https://app.tiquo.co/api/v1/openapi). This page provides detailed information about the API endpoints, request and response formats, and authentication requirements.
 
 ## Upload a Document
 
@@ -133,7 +133,7 @@ The upload URL is a pre-signed S3 URL that you can use to upload the document to
       "token": "<unique-signer-token>",
       "role": "SIGNER",
       "signingOrder": 1,
-      "signingUrl": "https://app.documenso.com/sign/<unique-signer-token>"
+      "signingUrl": "https://app.tiquo.co/sign/<unique-signer-token>"
     },
     {
       "recipientId": 12,
@@ -142,7 +142,7 @@ The upload URL is a pre-signed S3 URL that you can use to upload the document to
       "token": "<unique-signer-token>",
       "role": "SIGNER",
       "signingOrder": 0,
-      "signingUrl": "https://app.documenso.com/sign/<unique-signer-token>"
+      "signingUrl": "https://app.tiquo.co/sign/<unique-signer-token>"
     }
   ]
 }
@@ -297,7 +297,7 @@ At the minimum, you must provide the `recipients` array in the JSON payload. Her
 }
 ```
 
-Filling the `recipients` array with the corresponding recipient for each template placeholder recipient is recommended. For example, if the template has two placeholders, you should provide at least two recipients in the `recipients` array. Otherwise, the document will be sent to inexistent recipients such as `<recipient.1@documenso.com>`. However, the recipients can always be edited via the API or the web app.
+Filling the `recipients` array with the corresponding recipient for each template placeholder recipient is recommended. For example, if the template has two placeholders, you should provide at least two recipients in the `recipients` array. Otherwise, the document will be sent to inexistent recipients such as `<recipient.1@tiquo.co>`. However, the recipients can always be edited via the API or the web app.
 
 A successful response will contain the document ID and recipient(s) information.
 
@@ -312,7 +312,7 @@ A successful response will contain the document ID and recipient(s) information.
       "token": "<signing-token>",
       "role": "SIGNER",
       "signingOrder": null,
-      "signingUrl": "https://app.documenso.com/sign/<signing-token>"
+      "signingUrl": "https://app.tiquo.co/sign/<signing-token>"
     }
   ]
 }
@@ -420,7 +420,7 @@ An example response would look like this:
       "readStatus": "NOT_OPENED",
       "signingStatus": "NOT_SIGNED",
       "sendStatus": "NOT_SENT",
-      "signingUrl": "https://app.documenso.com/sign/<signing-token>"
+      "signingUrl": "https://app.tiquo.co/sign/<signing-token>"
     }
   ]
 }
@@ -546,7 +546,7 @@ To pre-fill a field, you need to make a `POST` request to the `/api/v1/templates
     {
       "id": 3,
       "name": "Example User",
-      "email": "example@documenso.com",
+      "email": "example@tiquo.co",
       "signingOrder": 1,
       "role": "SIGNER"
     }
@@ -577,7 +577,7 @@ To pre-fill a field, you need to make a `POST` request to the `/api/v1/templates
 }
 ```
 
-Check out the endpoint in the [API V1 documentation](https://app.documenso.com/api/v1/openapi#:~:text=/%7BtemplateId%7D/-,generate,-%2Ddocument).
+Check out the endpoint in the [API V1 documentation](https://app.tiquo.co/api/v1/openapi#:~:text=/%7BtemplateId%7D/-,generate,-%2Ddocument).
 
 ### API V2
 
@@ -590,7 +590,7 @@ For API V2, you need to make a `POST` request to the `/api/v2-beta/template/use`
     {
       "id": 3,
       "name": "Example User",
-      "email": "example@documenso.com",
+      "email": "example@tiquo.co",
       "signingOrder": 1,
       "role": "SIGNER"
     }
@@ -621,4 +621,4 @@ For API V2, you need to make a `POST` request to the `/api/v2-beta/template/use`
 }
 ```
 
-Check out the endpoint in the [API V2 documentation](https://openapi.documenso.com/reference#tag/template/POST/template/use).
+Check out the endpoint in the [API V2 documentation](https://openapi.tiquo.co/reference#tag/template/POST/template/use).

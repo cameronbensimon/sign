@@ -25,7 +25,7 @@ export const CallToAction = ({ className, utmSource = 'generic-cta' }: CallToAct
           size="lg"
           asChild
         >
-          <Link href={`https://app.documenso.com/signup?utm_source=${utmSource}`} target="_blank">
+          <Link href={`https://app.tiquo.co/signup?utm_source=${utmSource}`} target="_blank">
             Get started
           </Link>
         </Button>

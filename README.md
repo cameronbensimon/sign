@@ -4,12 +4,12 @@
   <p align="center">
   The Open Source DocuSign Alternative.
   <br>
-    <a href="https://documenso.com"><strong>Learn more »</strong></a>
+    <a href="https://tiquo.co"><strong>Learn more »</strong></a>
     <br />
     <br />
     <a href="https://documen.so/discord">Discord</a>
     ·
-    <a href="https://documenso.com">Website</a>
+    <a href="https://tiquo.co">Website</a>
     ·
     <a href="https://github.com/documenso/documenso/issues">Issues</a>
     ·

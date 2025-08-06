@@ -28,7 +28,7 @@ export type OrganisationInviteEmailProps = {
 
 export const OrganisationInviteEmailTemplate = ({
   assetBaseUrl = 'http://localhost:3002',
-  baseUrl = 'https://documenso.com',
+  baseUrl = 'https://tiquo.co',
   senderName = 'John Doe',
   organisationName = 'Organisation Name',
   token = '',

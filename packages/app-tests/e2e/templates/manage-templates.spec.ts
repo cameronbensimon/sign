@@ -144,8 +144,8 @@ test('[TEMPLATES]: use template', async ({ page }) => {
   await page.getByRole('button', { name: 'Use Template' }).click();
 
   // Enter template values.
-  await page.getByPlaceholder('recipient.1@documenso.com').click();
-  await page.getByPlaceholder('recipient.1@documenso.com').fill(teamMemberUser.email);
+  await page.getByPlaceholder('recipient.1@tiquo.co').click();
+  await page.getByPlaceholder('recipient.1@tiquo.co').fill(teamMemberUser.email);
   await page.getByPlaceholder('Recipient 1').click();
   await page.getByPlaceholder('Recipient 1').fill('name');
 

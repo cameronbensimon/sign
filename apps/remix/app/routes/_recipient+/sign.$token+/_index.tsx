@@ -219,10 +219,7 @@ export default function SigningPage() {
             <p className="text-muted-foreground/60 mt-36 text-sm">
               <Trans>
                 Want to send slick signing links like this one?{' '}
-                <Link
-                  to="https://documenso.com"
-                  className="text-documenso-700 hover:text-documenso-600"
-                >
+                <Link to="https://tiquo.co" className="text-documenso-700 hover:text-documenso-600">
                   Check out Documenso.
                 </Link>
               </Trans>

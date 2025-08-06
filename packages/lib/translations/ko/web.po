@@ -6,13 +6,13 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "X-Generator: @lingui/cli\n"
 "Language: ko\n"
-"Project-Id-Version: documenso-app\n"
+"Project-Id-Version: tiquo-app\n"
 "Report-Msgid-Bugs-To: \n"
 "PO-Revision-Date: 2025-06-19 06:05\n"
 "Last-Translator: \n"
 "Language-Team: Korean\n"
 "Plural-Forms: nplurals=1; plural=0;\n"
-"X-Crowdin-Project: documenso-app\n"
+"X-Crowdin-Project: tiquo-app\n"
 "X-Crowdin-Project-ID: 694691\n"
 "X-Crowdin-Language: ko\n"
 "X-Crowdin-File: web.po\n"
@@ -402,8 +402,8 @@ msgid "<0>\"{0}\"</0>is no longer available to sign"
 msgstr "<0>\"{0}\"</0>은 더 이상 서명할 수 없습니다"
 
 #: packages/email/templates/confirm-team-email.tsx
-msgid "<0>{teamName}</0> has requested to use your email address for their team on Documenso."
-msgstr "<0>{teamName}</0>이 귀하의 이메일 주소를 Documenso에서 그들의 팀에 사용하도록 요청했습니다．"
+msgid "<0>{teamName}</0> has requested to use your email address for their team on tiquo."
+msgstr "<0>{teamName}</0>이 귀하의 이메일 주소를 tiquo에서 그들의 팀에 사용하도록 요청했습니다．"
 
 #: apps/remix/app/components/dialogs/template-use-dialog.tsx
 msgid "<0>Click to upload</0> or drag and drop"
@@ -592,8 +592,8 @@ msgid "A means to print or download documents for your records"
 msgstr "기록을 위해 문서를 인쇄하거나 다운로드할 수 있는 방법"
 
 #: packages/email/templates/organisation-join.tsx
-msgid "A member has joined your organisation on Documenso"
-msgstr "회원님이 조직에 가입하였습니다 - Documenso"
+msgid "A member has joined your organisation on tiquo"
+msgstr "회원님이 조직에 가입하였습니다 - tiquo"
 
 #: packages/lib/jobs/definitions/emails/send-organisation-member-left-email.handler.ts
 msgid "A member has left your organisation"
@@ -604,8 +604,8 @@ msgid "A member has left your organisation {organisationName}"
 msgstr "{organisationName}에서 회원님이 조직을 떠났습니다."
 
 #: packages/email/templates/organisation-leave.tsx
-msgid "A member has left your organisation on Documenso"
-msgstr "Documenso에서 멤버가 조직을 떠났습니다"
+msgid "A member has left your organisation on tiquo"
+msgstr "tiquo에서 멤버가 조직을 떠났습니다"
 
 #: packages/lib/jobs/definitions/emails/send-organisation-member-joined-email.handler.ts
 msgid "A new member has joined your organisation"
@@ -638,16 +638,16 @@ msgstr "수신자가 업데이트되었습니다"
 
 #. placeholder {0}: team.name
 #: packages/lib/server-only/team/create-team-email-verification.ts
-msgid "A request to use your email has been initiated by {0} on Documenso"
-msgstr "Documenso에서 {0}님이 이메일 사용 요청을 시작했습니다"
+msgid "A request to use your email has been initiated by {0} on tiquo"
+msgstr "tiquo에서 {0}님이 이메일 사용 요청을 시작했습니다"
 
 #: apps/remix/app/components/dialogs/webhook-create-dialog.tsx
-msgid "A secret that will be sent to your URL so you can verify that the request has been sent by Documenso"
-msgstr "Documenso가 요청을 보냈음을 확인할 수 있도록 귀하의 URL로 비밀 정보가 전송됩니다"
+msgid "A secret that will be sent to your URL so you can verify that the request has been sent by tiquo"
+msgstr "tiquo가 요청을 보냈음을 확인할 수 있도록 귀하의 URL로 비밀 정보가 전송됩니다"
 
 #: apps/remix/app/routes/_authenticated+/t.$teamUrl+/settings.webhooks.$id.tsx
-msgid "A secret that will be sent to your URL so you can verify that the request has been sent by Documenso."
-msgstr "Documenso가 요청을 보냈음을 확인할 수 있도록 귀하의 URL로 비밀 정보가 전송됩니다．"
+msgid "A secret that will be sent to your URL so you can verify that the request has been sent by tiquo."
+msgstr "tiquo가 요청을 보냈음을 확인할 수 있도록 귀하의 URL로 비밀 정보가 전송됩니다．"
 
 #: apps/remix/app/routes/_unauthenticated+/articles.signature-disclosure.tsx
 msgid "A stable internet connection"
@@ -686,12 +686,12 @@ msgid "Accept"
 msgstr "수락"
 
 #: packages/email/templates/organisation-invite.tsx
-msgid "Accept invitation to join an organisation on Documenso"
-msgstr "Documenso의 조직에 가입 초대를 수락합니다."
+msgid "Accept invitation to join an organisation on tiquo"
+msgstr "tiquo의 조직에 가입 초대를 수락합니다."
 
 #: packages/email/templates/confirm-team-email.tsx
-msgid "Accept team email request for {teamName} on Documenso"
-msgstr "Documenso에서 {teamName} 팀 이메일 요청을 수락하세요"
+msgid "Accept team email request for {teamName} on tiquo"
+msgstr "tiquo에서 {teamName} 팀 이메일 요청을 수락하세요"
 
 #: apps/remix/app/routes/_unauthenticated+/articles.signature-disclosure.tsx
 msgid "Acceptance and Consent"
@@ -1576,8 +1576,8 @@ msgid "By enabling 2FA, you will be required to enter a code from your authentic
 msgstr "2단계 인증을 활성화하면 이메일 비밀번호를 통해 서명할 때마다 인증 앱에서 코드를 입력해야 합니다."
 
 #: apps/remix/app/routes/_unauthenticated+/articles.signature-disclosure.tsx
-msgid "By proceeding to use the electronic signature service provided by Documenso, you affirm that you have read and understood this disclosure. You agree to all terms and conditions related to the use of electronic signatures and electronic transactions as outlined herein."
-msgstr "Documenso에서 제공하는 전자 서명 서비스를 계속 사용함으로써 귀하는 이 공개를 읽고 이해했음을 확인하게 됩니다. 귀하는 전자 서명 및 전자 거래 사용과 관련된 모든 조건에 동의합니다．"
+msgid "By proceeding to use the electronic signature service provided by tiquo, you affirm that you have read and understood this disclosure. You agree to all terms and conditions related to the use of electronic signatures and electronic transactions as outlined herein."
+msgstr "tiquo에서 제공하는 전자 서명 서비스를 계속 사용함으로써 귀하는 이 공개를 읽고 이해했음을 확인하게 됩니다. 귀하는 전자 서명 및 전자 거래 사용과 관련된 모든 조건에 동의합니다．"
 
 #: apps/remix/app/components/general/document-signing/document-signing-disclosure.tsx
 msgid "By proceeding with your electronic signature, you acknowledge and consent that it will be used to sign the given document and holds the same legal validity as a handwritten signature. By completing the electronic signing process, you affirm your understanding and acceptance of these conditions."
@@ -2623,8 +2623,8 @@ msgid "Do you want to duplicate this template?"
 msgstr "이 템플릿을 복제하시겠습니까？"
 
 #: apps/remix/app/components/dialogs/account-delete-dialog.tsx
-msgid "Documenso will delete <0>all of your documents</0>, along with all of your completed documents, signatures, and all other resources belonging to your Account."
-msgstr "Documenso는 모든 완료된 문서와 서명을 포함하여 계정에 속한 <0>모든 문서</0>와 기타 모든 자원을 삭제할 것입니다．"
+msgid "tiquo will delete <0>all of your documents</0>, along with all of your completed documents, signatures, and all other resources belonging to your Account."
+msgstr "tiquo는 모든 완료된 문서와 서명을 포함하여 계정에 속한 <0>모든 문서</0>와 기타 모든 자원을 삭제할 것입니다．"
 
 #: apps/remix/app/routes/_authenticated+/t.$teamUrl+/documents.$id.logs.tsx
 #: apps/remix/app/components/general/template/template-page-view-documents-table.tsx
@@ -3936,8 +3936,8 @@ msgid "It's currently not your turn to sign. You will receive an email with inst
 msgstr "현재 서명할 차례가 아닙니다． 서명할 차례가 되면 이메일로 지침을 받게 됩니다．"
 
 #: packages/email/templates/organisation-invite.tsx
-msgid "Join {organisationName} on Documenso"
-msgstr "Documenso에서 {organisationName}에 참여하기"
+msgid "Join {organisationName} on tiquo"
+msgstr "tiquo에서 {organisationName}에 참여하기"
 
 #. placeholder {0}: DateTime.fromJSDate(team.createdAt).toRelative({ style: 'short' })
 #: apps/remix/app/routes/_authenticated+/dashboard.tsx
@@ -6284,8 +6284,8 @@ msgstr "팀"
 
 #. placeholder {0}: team.name
 #: packages/lib/server-only/team/delete-team.ts
-msgid "Team \"{0}\" has been deleted on Documenso"
-msgstr "팀 \"{0}\"이 Documenso에서 삭제되었습니다"
+msgid "Team \"{0}\" has been deleted on tiquo"
+msgstr "팀 \"{0}\"이 tiquo에서 삭제되었습니다"
 
 #: packages/lib/constants/teams-translations.ts
 msgid "Team Admin"
@@ -6327,8 +6327,8 @@ msgid "Team email removed"
 msgstr "팀 이메일 제거됨"
 
 #: packages/email/templates/team-email-removed.tsx
-msgid "Team email removed for {teamName} on Documenso"
-msgstr "Documenso에서 {teamName}의 팀 이메일이 제거되었습니다"
+msgid "Team email removed for {teamName} on tiquo"
+msgstr "tiquo에서 {teamName}의 팀 이메일이 제거되었습니다"
 
 #: apps/remix/app/routes/_unauthenticated+/team.verify.email.$token.tsx
 msgid "Team email verification"
@@ -6517,8 +6517,8 @@ msgid "Thank you for completing the signing process."
 msgstr "서명 과정을 완료해 주셔서 감사합니다."
 
 #: apps/remix/app/routes/_unauthenticated+/articles.signature-disclosure.tsx
-msgid "Thank you for using Documenso to perform your electronic document signing. The purpose of this disclosure is to inform you about the process, legality, and your rights regarding the use of electronic signatures on our platform. By opting to use an electronic signature, you are agreeing to the terms and conditions outlined below."
-msgstr "Documenso를 사용하여 전자 문서 서명을 수행해 주셔서 감사합니다． 이 공개의 목적은 전자 서명의 프로세스, 합법성 및 귀하의 권리에 대해 알리는 것입니다． 전자 서명을 사용하기로 선택함으로써 귀하는 아래에 명시된 약관에 동의하게 됩니다．"
+msgid "Thank you for using tiquo to perform your electronic document signing. The purpose of this disclosure is to inform you about the process, legality, and your rights regarding the use of electronic signatures on our platform. By opting to use an electronic signature, you are agreeing to the terms and conditions outlined below."
+msgstr "tiquo를 사용하여 전자 문서 서명을 수행해 주셔서 감사합니다． 이 공개의 목적은 전자 서명의 프로세스, 합법성 및 귀하의 권리에 대해 알리는 것입니다． 전자 서명을 사용하기로 선택함으로써 귀하는 아래에 명시된 약관에 동의하게 됩니다．"
 
 #: packages/email/template-components/template-forgot-password.tsx
 msgid "That's okay, it happens! Click the button below to reset your password."
@@ -6770,8 +6770,8 @@ msgstr "수신자가 문서 서명 시 사용할 수 있는 서명 유형입니�
 
 #: apps/remix/app/routes/_authenticated+/t.$teamUrl+/settings.webhooks.$id.tsx
 #: apps/remix/app/components/dialogs/webhook-create-dialog.tsx
-msgid "The URL for Documenso to send webhook events to."
-msgstr "웹훅 이벤트를 Documenso로 전송할 URL입니다．"
+msgid "The URL for tiquo to send webhook events to."
+msgstr "웹훅 이벤트를 tiquo로 전송할 URL입니다．"
 
 #: apps/remix/app/routes/_authenticated+/admin+/users.$id.tsx
 msgid "The user you are looking for may have been removed, renamed or may have never\n"
@@ -6877,8 +6877,8 @@ msgid "This document has been signed by all recipients"
 msgstr "이 문서는 모든 수신자가 서명했습니다"
 
 #: apps/remix/app/components/general/document/document-certificate-qr-view.tsx
-msgid "This document is available in your Documenso account. You can view more details, recipients, and audit logs there."
-msgstr "이 문서는 당신의 Documenso 계정에 있습니다. 자세한 정보, 수신자 및 감사 로그를 거기서 확인할 수 있습니다."
+msgid "This document is available in your tiquo account. You can view more details, recipients, and audit logs there."
+msgstr "이 문서는 당신의 tiquo 계정에 있습니다. 자세한 정보, 수신자 및 감사 로그를 거기서 확인할 수 있습니다."
 
 #: apps/remix/app/routes/_authenticated+/t.$teamUrl+/documents.$id._index.tsx
 msgid "This document is currently a draft and has not been sent"
@@ -6897,8 +6897,8 @@ msgid "This document was created using a direct link."
 msgstr "이 문서는 직접 링크를 사용하여 생성되었습니다．"
 
 #: packages/email/template-components/template-footer.tsx
-msgid "This document was sent using <0>Documenso.</0>"
-msgstr "이 문서는 <0>Documenso.</0> 를 사용하여 발송되었습니다."
+msgid "This document was sent using <0>tiquo.</0>"
+msgstr "이 문서는 <0>tiquo.</0> 를 사용하여 발송되었습니다."
 
 #: packages/email/template-components/template-document-rejection-confirmed.tsx
 msgid "This email confirms that you have rejected the document <0>\"{documentName}\"</0> sent by {documentOwnerName}."
@@ -7760,8 +7760,8 @@ msgid "Waiting for Your Turn"
 msgstr "당신의 차례를 기다리는 중"
 
 #: apps/remix/app/routes/_recipient+/sign.$token+/_index.tsx
-msgid "Want to send slick signing links like this one? <0>Check out Documenso.</0>"
-msgstr "멋진 서명 링크를 보내고 싶으신가요? <0>Documenso를 확인하세요.</0>"
+msgid "Want to send slick signing links like this one? <0>Check out tiquo.</0>"
+msgstr "멋진 서명 링크를 보내고 싶으신가요? <0>tiquo를 확인하세요.</0>"
 
 #: apps/remix/app/routes/_profile+/_layout.tsx
 msgid "Want your own public profile?"
@@ -8077,8 +8077,8 @@ msgid "Welcome back! Here's an overview of your account."
 msgstr "다시 환영합니다! 계정 개요입니다."
 
 #: packages/email/template-components/template-confirmation-email.tsx
-msgid "Welcome to Documenso!"
-msgstr "Documenso에 오신 것을 환영합니다！"
+msgid "Welcome to tiquo!"
+msgstr "tiquo에 오신 것을 환영합니다！"
 
 #: apps/remix/app/routes/_recipient+/sign.$token+/waiting.tsx
 msgid "Were you trying to edit this document instead?"
@@ -8107,8 +8107,8 @@ msgid "When you use our platform to affix your electronic signature to documents
 msgstr "플랫폼을 사용하여 문서에 전자 서명을 추가하면 세계 및 국내 상거래에서의 전자 서명법(E-Sign법) 및 기타 관련 법률에 따라 이를 수행하는 데 동의하게 됩니다． 이 행동은 문서에 서명하고 알림을 전자적으로 받는 것에 대한 귀하의 동의를 나타냅니다．"
 
 #: apps/remix/app/routes/_profile+/p.$url.tsx
-msgid "While waiting for them to do so you can create your own Documenso account and get started with document signing right away."
-msgstr "그들이 그렇게 하기 전에 Documenso 계정을 만들고 바로 문서 서명을 시작할 수 있습니다．"
+msgid "While waiting for them to do so you can create your own tiquo account and get started with document signing right away."
+msgstr "그들이 그렇게 하기 전에 tiquo 계정을 만들고 바로 문서 서명을 시작할 수 있습니다．"
 
 #: apps/remix/app/components/dialogs/organisation-create-dialog.tsx
 msgid "Whitelabeling, unlimited members and more"
@@ -8256,8 +8256,8 @@ msgid "You can enable access to allow all organisation members to access this te
 msgstr "모든 조직 멤버가 기본적으로 이 팀에 접근할 수 있도록 허용할 수 있습니다."
 
 #: packages/email/templates/confirm-team-email.tsx
-msgid "You can revoke access at any time in your team settings on Documenso <0>here.</0>"
-msgstr "Documenso의 팀 설정에서 언제든지 <0>여기</0>에서 액세스를 취소할 수 있습니다"
+msgid "You can revoke access at any time in your team settings on tiquo <0>here.</0>"
+msgstr "tiquo의 팀 설정에서 언제든지 <0>여기</0>에서 액세스를 취소할 수 있습니다"
 
 #: apps/remix/app/components/forms/public-profile-form.tsx
 msgid "You can update the profile URL by updating the team URL in the general settings page."
@@ -8351,8 +8351,8 @@ msgstr "<0>{0}</0>로 부터 조직에 가입 초대를 받았습니다."
 
 #. placeholder {0}: organisation.name
 #: packages/lib/server-only/organisation/create-organisation-member-invites.ts
-msgid "You have been invited to join {0} on Documenso"
-msgstr "Documenso에서 {0}에 초대되었습니다"
+msgid "You have been invited to join {0} on tiquo"
+msgstr "tiquo에서 {0}에 초대되었습니다"
 
 #: packages/email/templates/organisation-invite.tsx
 msgid "You have been invited to join the following organisation"
@@ -8396,8 +8396,8 @@ msgid "You have reached the maximum limit of {0} direct templates. <0>Upgrade yo
 msgstr "{0}개의 직접 템플릿 최대 한도에 도달했습니다. <0>계정을 업그레이드하여 계속하십시오!</0>"
 
 #: apps/remix/app/components/dialogs/team-create-dialog.tsx
-msgid "You have reached the maximum number of teams for your plan. Please contact sales at <0>support@documenso.com</0> if you would like to adjust your plan."
-msgstr "플랜에 대한 최대 팀 수에 도달했습니다. 플랜 조정을 원하시면 <0>support@documenso.com</0>로 영업팀에 문의하세요."
+msgid "You have reached the maximum number of teams for your plan. Please contact sales at <0>support@tiquo.com</0> if you would like to adjust your plan."
+msgstr "플랜에 대한 최대 팀 수에 도달했습니다. 플랜 조정을 원하시면 <0>support@tiquo.com</0>로 영업팀에 문의하세요."
 
 #: apps/remix/app/components/general/document/document-upload.tsx
 #: apps/remix/app/components/general/document/document-drop-zone-wrapper.tsx
@@ -8609,12 +8609,12 @@ msgid "Your documents"
 msgstr "내 문서"
 
 #: apps/remix/app/routes/_unauthenticated+/verify-email.$token.tsx
-msgid "Your email has already been confirmed. You can now use all features of Documenso."
-msgstr "이메일이 이미 확인되었습니다. 지금 Documenso의 모든 기능을 사용할 수 있습니다."
+msgid "Your email has already been confirmed. You can now use all features of tiquo."
+msgstr "이메일이 이미 확인되었습니다. 지금 tiquo의 모든 기능을 사용할 수 있습니다."
 
 #: apps/remix/app/routes/_unauthenticated+/verify-email.$token.tsx
-msgid "Your email has been successfully confirmed! You can now use all features of Documenso."
-msgstr "이메일이 성공적으로 확인되었습니다! 이제 Documenso의 모든 기능을 사용할 수 있습니다．"
+msgid "Your email has been successfully confirmed! You can now use all features of tiquo."
+msgstr "이메일이 성공적으로 확인되었습니다! 이제 tiquo의 모든 기능을 사용할 수 있습니다．"
 
 #. placeholder {0}: teamEmail.team.name
 #. placeholder {1}: teamEmail.team.url
@@ -8661,8 +8661,8 @@ msgid "Your personal organisation"
 msgstr "귀하의 개인 조직"
 
 #: apps/remix/app/components/dialogs/organisation-member-invite-dialog.tsx
-msgid "Your plan does not support inviting members. Please upgrade or your plan or contact sales at <0>support@documenso.com</0> if you would like to discuss your options."
-msgstr "귀하의 플랜은 멤버 초대를 지원하지 않습니다. 업그레이드하시거나 선택 사항을 논의하고 싶으시다면 <0>support@documenso.com</0> 로 판매팀에 문의하십시오."
+msgid "Your plan does not support inviting members. Please upgrade or your plan or contact sales at <0>support@tiquo.com</0> if you would like to discuss your options."
+msgstr "귀하의 플랜은 멤버 초대를 지원하지 않습니다. 업그레이드하시거나 선택 사항을 논의하고 싶으시다면 <0>support@tiquo.com</0> 로 판매팀에 문의하십시오."
 
 #: apps/remix/app/components/forms/profile.tsx
 msgid "Your profile has been updated successfully."

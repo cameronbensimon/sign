@@ -9,11 +9,11 @@ Documenso uses API keys for authentication. An API key is a unique token that is
 
 ## Creating an API Key
 
-To create an API key, navigate to the user settings page. Click on your avatar in the top right corner of the dashboard and select "**[User settings](https://app.documenso.com/settings)**" from the dropdown menu.
+To create an API key, navigate to the user settings page. Click on your avatar in the top right corner of the dashboard and select "**[User settings](https://app.tiquo.co/settings)**" from the dropdown menu.
 
 ![A screenshot of the Documenso's dashboard that shows the dropdown menu when you click on your user avatar](/public-api-images/documenso-user-dropdown-menu.webp)
 
-Once you're on the user settings page, navigate to the "**[API Tokens](https://app.documenso.com/settings/tokens)**" tab. The "API Token" page lists your existing keys and enables you to create new ones.
+Once you're on the user settings page, navigate to the "**[API Tokens](https://app.tiquo.co/settings/tokens)**" tab. The "API Token" page lists your existing keys and enables you to create new ones.
 
 ![A screenshot of the Documenso's user settings page that shows the API Tokens page](/public-api-images/api-tokens-page-documenso.webp)
 
@@ -37,7 +37,7 @@ You must include the API key in the `Authorization` request header to authentica
 Here's a sample API request using cURL:
 
 ```bash
-curl --location 'https://app.documenso.com/api/v1/documents?page=1&perPage=1' \
+curl --location 'https://app.tiquo.co/api/v1/documents?page=1&perPage=1' \
 --header 'Authorization: api_xxxxxxxxxxxxxxxx'
 ```
 
