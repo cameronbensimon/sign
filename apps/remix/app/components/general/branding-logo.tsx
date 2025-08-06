@@ -35,14 +35,7 @@ export const BrandingLogo = ({ ...props }: LogoProps) => {
           d="M64.99,40.04c-10.5,2.81-18.82,10.93-21.94,21.29-2.59-.7-5.32-1.07-8.14-1.07-9.13,0-17.36,3.9-23.1,10.13-5.15-5.59-8.31-13.08-8.31-21.29,0-17.35,14.07-31.41,31.41-31.41,14.2,0,26.2,9.42,30.08,22.35Z"
         />
       </g>
-      <text
-        fontFamily="Inter-Regular, Inter"
-        fontSize="120"
-        fontVariationSettings="'opsz' 14, 'wght' 400"
-        letterSpacing="-.1em"
-        fill="currentColor"
-        transform="translate(124.4 103.65)"
-      >
+      <text className="cls-1" transform="translate(124.4 103.65)">
         <tspan x="0" y="0">
           tiquo
         </tspan>
