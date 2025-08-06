@@ -1,5 +1,5 @@
 {
-  "name": "@tiquo/openpage-api",
+  "name": "@documenso/openpage-api",
   "version": "1.0.0",
   "private": true,
   "scripts": {
@@ -10,7 +10,7 @@
     "clean": "rimraf .next && rimraf node_modules"
   },
   "dependencies": {
-    "@tiquo/prisma": "*",
+    "@documenso/prisma": "*",
     "luxon": "^3.5.0",
     "next": "14.2.28"
   },

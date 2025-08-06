@@ -1,5 +1,5 @@
 {
-  "name": "@tiquo/tailwind-config",
+  "name": "@documenso/tailwind-config",
   "version": "0.0.0",
   "main": "index.cjs",
   "types": "index.d.ts",

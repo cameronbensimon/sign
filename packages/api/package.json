@@ -1,5 +1,5 @@
 {
-  "name": "@tiquo/api",
+  "name": "@documenso/api",
   "version": "0.0.0",
   "main": "./index.ts",
   "types": "./index.ts",
@@ -15,8 +15,8 @@
     "v1/"
   ],
   "dependencies": {
-    "@tiquo/lib": "*",
-    "@tiquo/prisma": "*",
+    "@documenso/lib": "*",
+    "@documenso/prisma": "*",
     "@ts-rest/core": "^3.30.5",
     "@ts-rest/open-api": "^3.33.0",
     "@ts-rest/serverless": "^3.30.5",
