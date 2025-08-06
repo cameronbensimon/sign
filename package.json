@@ -67,7 +67,7 @@
     "packages/*"
   ],
   "dependencies": {
-    "@clerk/nextjs": "^6.29.0",
+    "@clerk/remix": "^4.10.10",
     "@documenso/pdf-sign": "^0.1.0",
     "@documenso/prisma": "^0.0.0",
     "@lingui/conf": "^5.2.0",

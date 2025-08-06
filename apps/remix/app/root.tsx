@@ -1,6 +1,7 @@
 import { useEffect } from 'react';
 
-import { ClerkProvider } from '@clerk/nextjs';
+import { ClerkApp } from '@clerk/remix';
+import { rootAuthLoader } from '@clerk/remix/ssr.server';
 import Plausible from 'plausible-tracker';
 import {
   Links,
@@ -16,7 +17,6 @@ import {
 import { PreventFlashOnWrongTheme, ThemeProvider, useTheme } from 'remix-themes';
 
 import { getOptionalSession } from '@documenso/auth/server/lib/utils/get-session';
-import { ClerkSessionProvider } from '@documenso/lib/client-only/providers/clerk-session';
 import { APP_I18N_OPTIONS, type SupportedLanguageCodes } from '@documenso/lib/constants/i18n';
 import { createPublicEnv, env } from '@documenso/lib/utils/env';
 import { extractLocaleData } from '@documenso/lib/utils/i18n';
@@ -50,7 +50,12 @@ export function meta() {
  */
 export const shouldRevalidate = () => false;
 
-export async function loader({ request }: Route.LoaderArgs) {
+export async function loader(args: Route.LoaderArgs) {
+  const { request } = args;
+
+  // Initialize Clerk auth state
+  await rootAuthLoader(args);
+
   const session = await getOptionalSession(request);
 
   const { getTheme } = await themeSessionResolver(request);
@@ -130,17 +135,13 @@ export function LayoutContent({ children }: { children: React.ReactNode }) {
         <script>0</script>
       </head>
       <body>
-        <ClerkProvider publishableKey={process.env.NEXT_PUBLIC_CLERK_PUBLISHABLE_KEY!}>
-          <ClerkSessionProvider>
-            <TooltipProvider>
-              <TrpcProvider>
-                {children}
+        <TooltipProvider>
+          <TrpcProvider>
+            {children}
 
-                <Toaster />
-              </TrpcProvider>
-            </TooltipProvider>
-          </ClerkSessionProvider>
-        </ClerkProvider>
+            <Toaster />
+          </TrpcProvider>
+        </TooltipProvider>
 
         <ScrollRestoration />
         <Scripts />
@@ -155,9 +156,11 @@ export function LayoutContent({ children }: { children: React.ReactNode }) {
   );
 }
 
-export default function App() {
+function App() {
   return <Outlet />;
 }
+
+export default ClerkApp(App);
 
 export function ErrorBoundary({ error }: Route.ErrorBoundaryProps) {
   const errorCode = isRouteErrorResponse(error) ? error.status : 500;
