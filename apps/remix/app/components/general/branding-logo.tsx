@@ -13,6 +13,7 @@ export const BrandingLogo = ({ ...props }: LogoProps) => {
               font-size: 120px;
               font-variation-settings: 'opsz' 14, 'wght' 400;
               letter-spacing: -.1em;
+              fill: currentColor;
             }
 
             .cls-2 {
