@@ -1,5 +1,6 @@
 import { useEffect } from 'react';
 
+import { ClerkProvider } from '@clerk/nextjs';
 import Plausible from 'plausible-tracker';
 import {
   Links,
@@ -15,7 +16,7 @@ import {
 import { PreventFlashOnWrongTheme, ThemeProvider, useTheme } from 'remix-themes';
 
 import { getOptionalSession } from '@documenso/auth/server/lib/utils/get-session';
-import { SessionProvider } from '@documenso/lib/client-only/providers/session';
+import { ClerkSessionProvider } from '@documenso/lib/client-only/providers/clerk-session';
 import { APP_I18N_OPTIONS, type SupportedLanguageCodes } from '@documenso/lib/constants/i18n';
 import { createPublicEnv, env } from '@documenso/lib/utils/env';
 import { extractLocaleData } from '@documenso/lib/utils/i18n';
@@ -106,7 +107,7 @@ export function Layout({ children }: { children: React.ReactNode }) {
 }
 
 export function LayoutContent({ children }: { children: React.ReactNode }) {
-  const { publicEnv, session, lang, ...data } = useLoaderData<typeof loader>() || {};
+  const { publicEnv, lang, ...data } = useLoaderData<typeof loader>() || {};
 
   const [theme] = useTheme();
 
@@ -129,15 +130,17 @@ export function LayoutContent({ children }: { children: React.ReactNode }) {
         <script>0</script>
       </head>
       <body>
-        <SessionProvider initialSession={session}>
-          <TooltipProvider>
-            <TrpcProvider>
-              {children}
+        <ClerkProvider publishableKey={process.env.NEXT_PUBLIC_CLERK_PUBLISHABLE_KEY!}>
+          <ClerkSessionProvider>
+            <TooltipProvider>
+              <TrpcProvider>
+                {children}
 
-              <Toaster />
-            </TrpcProvider>
-          </TooltipProvider>
-        </SessionProvider>
+                <Toaster />
+              </TrpcProvider>
+            </TooltipProvider>
+          </ClerkSessionProvider>
+        </ClerkProvider>
 
         <ScrollRestoration />
         <Scripts />

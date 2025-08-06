@@ -52,6 +52,9 @@ model User {
   avatarImageId    String?
   disabled         Boolean          @default(false)
 
+  // Clerk Integration Fields
+  clerkUserId      String?          @unique // Clerk user ID for migrated users
+
   accounts            Account[]
   sessions            Session[]
   passwordResetTokens PasswordResetToken[]
@@ -76,6 +79,7 @@ model User {
   avatarImage        AvatarImage?           @relation(fields: [avatarImageId], references: [id], onDelete: SetNull)
 
   @@index([email])
+  @@index([clerkUserId])
 }
 
 model TeamProfile {
@@ -609,6 +613,9 @@ model Organisation {
   name          String
   url           String           @unique
   avatarImageId String?
+
+  // Clerk Integration Fields
+  clerkOrganizationId String? @unique // Clerk organization ID for migrated orgs
 
   customerId   String?       @unique
   subscription Subscription?
