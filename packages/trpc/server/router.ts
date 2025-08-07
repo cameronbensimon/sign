@@ -19,7 +19,6 @@ export const appRouter = router({
   enterprise: enterpriseRouter,
   auth: authRouter,
   profile: profileRouter,
-  user: userRouter,
   document: documentRouter,
   field: fieldRouter,
   folder: folderRouter,
