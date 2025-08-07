@@ -180,8 +180,8 @@ export const AddTemplatePlaceholderRecipientsFormPartial = ({
   const onAddPlaceholderSelfRecipient = () => {
     appendSigner({
       formId: nanoid(12),
-      name: user.name ?? '',
-      email: user.email ?? '',
+      name: user?.name ?? '',
+      email: user?.email ?? '',
       role: RecipientRole.SIGNER,
       signingOrder: signers.length > 0 ? (signers[signers.length - 1]?.signingOrder ?? 0) + 1 : 1,
       actionAuth: [],

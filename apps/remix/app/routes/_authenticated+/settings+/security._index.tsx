@@ -69,7 +69,7 @@ export default function SettingsSecurity({ loaderData }: Route.ComponentProps) {
       />
       {hasEmailPasswordAccount && (
         <>
-          <PasswordForm user={user} />
+          {user && <PasswordForm user={user} />}
 
           <hr className="border-border/50 mt-6" />
         </>
@@ -99,14 +99,14 @@ export default function SettingsSecurity({ loaderData }: Route.ComponentProps) {
           </AlertDescription>
         </div>
 
-        {user.twoFactorEnabled ? (
+        {user?.twoFactorEnabled ? (
           <DisableAuthenticatorAppDialog />
         ) : (
           <EnableAuthenticatorAppDialog />
         )}
       </Alert>
 
-      {user.twoFactorEnabled && (
+      {user?.twoFactorEnabled && (
         <Alert
           className="mt-6 flex flex-col justify-between p-6 sm:flex-row sm:items-center"
           variant="neutral"

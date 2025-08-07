@@ -18,6 +18,10 @@ export const syncClerkOrganization = procedure
     const { user } = ctx;
     const { clerkOrgId, name, url } = input;
 
+    if (!user) {
+      throw new Error('User must be authenticated to sync organizations');
+    }
+
     // Create or update local organization
     const organisation = await prisma.organisation.upsert({
       where: { clerkOrganizationId: clerkOrgId },
@@ -27,7 +31,7 @@ export const syncClerkOrganization = procedure
         clerkOrganizationId: clerkOrgId,
         name,
         url,
-        type: OrganisationType.REGULAR,
+        type: OrganisationType.ORGANISATION,
         ownerUserId: user.id,
         organisationClaimId: alphaid(),
         organisationGlobalSettingsId: alphaid(),

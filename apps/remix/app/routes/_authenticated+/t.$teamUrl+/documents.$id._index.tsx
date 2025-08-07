@@ -65,10 +65,10 @@ export async function loader({ params, request }: Route.LoaderArgs) {
 
   const documentVisibility = document?.visibility;
   const currentTeamMemberRole = team.currentTeamRole;
-  const isRecipient = document?.recipients.find((recipient) => recipient.email === user.email);
+  const isRecipient = document?.recipients.find((recipient) => recipient.email === user?.email);
   let canAccessDocument = true;
 
-  if (!isRecipient && document?.userId !== user.id) {
+  if (!isRecipient && document?.userId !== user?.id) {
     canAccessDocument = match([documentVisibility, currentTeamMemberRole])
       .with([DocumentVisibility.EVERYONE, TeamMemberRole.ADMIN], () => true)
       .with([DocumentVisibility.EVERYONE, TeamMemberRole.MANAGER], () => true)
@@ -215,13 +215,15 @@ export default function DocumentPage() {
             </section>
 
             {/* Document information section. */}
-            <DocumentPageViewInformation document={document} userId={user.id} />
+            {user?.id && <DocumentPageViewInformation document={document} userId={user.id} />}
 
             {/* Recipients section. */}
             <DocumentPageViewRecipients document={document} documentRootPath={documentRootPath} />
 
             {/* Recent activity section. */}
-            <DocumentPageViewRecentActivity documentId={document.id} userId={user.id} />
+            {user?.id && (
+              <DocumentPageViewRecentActivity documentId={document.id} userId={user.id} />
+            )}
           </div>
         </div>
       </div>

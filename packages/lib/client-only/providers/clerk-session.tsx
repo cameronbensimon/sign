@@ -1,7 +1,7 @@
 import { createContext, useCallback, useContext, useEffect, useRef, useState } from 'react';
 import React from 'react';
 
-import { useAuth, useUser } from '@clerk/react-router';
+import { useAuth, useOrganizationList, useUser } from '@clerk/react-router';
 import type { Session } from '@prisma/client';
 import { Role } from '@prisma/client';
 
@@ -74,6 +74,38 @@ export const useOptionalSession = () => {
   }
 
   return context;
+};
+
+// Hook specifically for authenticated routes that guarantees user exists
+export const useAuthenticatedSession = () => {
+  const context = useContext(ClerkSessionContext);
+
+  if (!context) {
+    throw new Error('useAuthenticatedSession must be used within a ClerkSessionProvider');
+  }
+
+  // In authenticated routes, if session is loading, show loading state
+  if (context.isLoading) {
+    // Return loading state with null values but indicate loading
+    return {
+      session: null,
+      user: null,
+      organisations: [],
+      refreshSession: context.refreshSession,
+      isLoading: true,
+    };
+  }
+
+  // In authenticated routes, if no session data, throw error (should not happen)
+  if (!context.sessionData || !context.sessionData.user) {
+    throw new Error('User not authenticated - this should not happen in authenticated routes');
+  }
+
+  return {
+    ...context.sessionData,
+    refreshSession: context.refreshSession,
+    isLoading: context.isLoading,
+  };
 };
 
 export const ClerkSessionProvider = ({ children }: ClerkSessionProviderProps) => {
