@@ -163,9 +163,13 @@ export const ClerkSessionProvider = ({ children }: ClerkSessionProviderProps) =>
         const sessionData: ClerkAppSession = {
           session: {
             id: sessionId,
+            sessionToken: sessionId, // Use sessionId as token
             userId: localUser.id,
-            createdAt: new Date(),
+            ipAddress: null, // Not available from Clerk
+            userAgent: null, // Not available from Clerk
             expiresAt: new Date(Date.now() + 1000 * 60 * 60 * 24 * 30), // 30 days
+            createdAt: new Date(),
+            updatedAt: new Date(),
           },
           user: {
             id: localUser.id,
