@@ -146,13 +146,24 @@ export function LayoutContent({ children }: { children: React.ReactNode }) {
 
 // TRPC Provider with Clerk Authentication Headers
 function TrpcProviderWithAuth({ children }: { children: React.ReactNode }) {
-  const { userId, sessionId } = useAuth();
+  const { userId, sessionId, isSignedIn, isLoaded } = useAuth();
+
+  console.log('TrpcProviderWithAuth - Auth state:', {
+    userId,
+    sessionId,
+    isSignedIn,
+    isLoaded,
+    hasUserId: !!userId,
+    hasSessionId: !!sessionId,
+  });
 
   // Create headers with Clerk auth information
   const headers = {
     ...(userId && { 'x-clerk-user-id': userId }),
     ...(sessionId && { 'x-clerk-session-id': sessionId }),
   };
+
+  console.log('TrpcProviderWithAuth - Headers being sent:', headers);
 
   return <TrpcProvider headers={headers}>{children}</TrpcProvider>;
 }

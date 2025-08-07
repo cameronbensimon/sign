@@ -28,6 +28,9 @@ const getClerkSessionFromHeaders = (req: Request): SessionValidationResult => {
     const clerkSessionId = req.headers.get('x-clerk-session-id');
     const clerkUserId = req.headers.get('x-clerk-user-id');
 
+    console.log('TRPC Context: All request headers:', Object.fromEntries(req.headers.entries()));
+    console.log('TRPC Context: Clerk headers lookup:', { clerkUserId, clerkSessionId });
+
     if (!clerkSessionId || !clerkUserId) {
       return { session: null, user: null, isAuthenticated: false };
     }
