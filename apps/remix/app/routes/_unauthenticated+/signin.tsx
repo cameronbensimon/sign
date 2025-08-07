@@ -1,73 +1,47 @@
-import { Trans } from '@lingui/react/macro';
-import { Link, redirect } from 'react-router';
+import { SignIn as ClerkSignIn } from '@clerk/clerk-react';
+import { useAuth } from '@clerk/clerk-react';
+import { redirect } from 'react-router';
 
-import { getOptionalSession } from '@documenso/auth/server/lib/utils/get-session';
-import {
-  IS_GOOGLE_SSO_ENABLED,
-  IS_OIDC_SSO_ENABLED,
-  OIDC_PROVIDER_LABEL,
-} from '@documenso/lib/constants/auth';
-import { env } from '@documenso/lib/utils/env';
-
-import { SignInForm } from '~/components/forms/signin';
 import { appMetaTags } from '~/utils/meta';
-
-import type { Route } from './+types/signin';
 
 export function meta() {
   return appMetaTags('Sign In');
 }
 
-export async function loader({ request }: Route.LoaderArgs) {
-  const { isAuthenticated } = await getOptionalSession(request);
-
-  // SSR env variables.
-  const isGoogleSSOEnabled = IS_GOOGLE_SSO_ENABLED;
-  const isOIDCSSOEnabled = IS_OIDC_SSO_ENABLED;
-  const oidcProviderLabel = OIDC_PROVIDER_LABEL;
-
-  if (isAuthenticated) {
-    throw redirect('/');
-  }
-
-  return {
-    isGoogleSSOEnabled,
-    isOIDCSSOEnabled,
-    oidcProviderLabel,
-  };
+export function loader() {
+  // For now, we'll handle authentication redirects on the client side with Clerk
+  // The loader can be simplified since Clerk handles auth state
+  return {};
 }
 
-export default function SignIn({ loaderData }: Route.ComponentProps) {
-  const { isGoogleSSOEnabled, isOIDCSSOEnabled, oidcProviderLabel } = loaderData;
+export default function SignIn() {
+  const { isSignedIn } = useAuth();
+
+  // Redirect if already signed in
+  if (isSignedIn) {
+    redirect('/');
+    return null;
+  }
 
   return (
-    <div className="w-screen max-w-lg px-4">
-      <div className="border-border dark:bg-background z-10 rounded-xl border bg-neutral-100 p-6">
-        <h1 className="text-2xl font-semibold">
-          <Trans>Sign in to your account</Trans>
-        </h1>
-
-        <p className="text-muted-foreground mt-2 text-sm">
-          <Trans>Welcome back, we are lucky to have you.</Trans>
-        </p>
-        <hr className="-mx-6 my-4" />
-
-        <SignInForm
-          isGoogleSSOEnabled={isGoogleSSOEnabled}
-          isOIDCSSOEnabled={isOIDCSSOEnabled}
-          oidcProviderLabel={oidcProviderLabel}
+    <div className="flex min-h-screen items-center justify-center">
+      <div className="w-full max-w-md">
+        <ClerkSignIn
+          redirectUrl="/"
+          signUpUrl="/signup"
+          appearance={{
+            elements: {
+              rootBox: 'w-full',
+              card: 'w-full shadow-lg border rounded-xl bg-white dark:bg-neutral-900',
+              headerTitle: 'text-2xl font-semibold',
+              headerSubtitle: 'text-muted-foreground text-sm',
+              socialButtonsBlockButton:
+                'border border-gray-300 hover:bg-gray-50 dark:border-gray-600 dark:hover:bg-gray-800',
+              formButtonPrimary: 'bg-blue-600 hover:bg-blue-700 text-white',
+              footerActionLink: 'text-blue-600 hover:text-blue-700',
+            },
+          }}
         />
-
-        {env('NEXT_PUBLIC_DISABLE_SIGNUP') !== 'true' && (
-          <p className="text-muted-foreground mt-6 text-center text-sm">
-            <Trans>
-              Don't have an account?{' '}
-              <Link to="/signup" className="text-documenso-700 duration-200 hover:opacity-70">
-                Sign up
-              </Link>
-            </Trans>
-          </p>
-        )}
       </div>
     </div>
   );

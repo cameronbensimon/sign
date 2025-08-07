@@ -1,12 +1,10 @@
+import { SignUp as ClerkSignUp } from '@clerk/clerk-react';
+import { useAuth } from '@clerk/clerk-react';
 import { redirect } from 'react-router';
 
-import { IS_GOOGLE_SSO_ENABLED, IS_OIDC_SSO_ENABLED } from '@documenso/lib/constants/auth';
 import { env } from '@documenso/lib/utils/env';
 
-import { SignUpForm } from '~/components/forms/signup';
 import { appMetaTags } from '~/utils/meta';
-
-import type { Route } from './+types/signup';
 
 export function meta() {
   return appMetaTags('Sign Up');
@@ -15,28 +13,42 @@ export function meta() {
 export function loader() {
   const NEXT_PUBLIC_DISABLE_SIGNUP = env('NEXT_PUBLIC_DISABLE_SIGNUP');
 
-  // SSR env variables.
-  const isGoogleSSOEnabled = IS_GOOGLE_SSO_ENABLED;
-  const isOIDCSSOEnabled = IS_OIDC_SSO_ENABLED;
-
   if (NEXT_PUBLIC_DISABLE_SIGNUP === 'true') {
     throw redirect('/signin');
   }
 
-  return {
-    isGoogleSSOEnabled,
-    isOIDCSSOEnabled,
-  };
+  return {};
 }
 
-export default function SignUp({ loaderData }: Route.ComponentProps) {
-  const { isGoogleSSOEnabled, isOIDCSSOEnabled } = loaderData;
+export default function SignUp() {
+  const { isSignedIn } = useAuth();
+
+  // Redirect if already signed in
+  if (isSignedIn) {
+    redirect('/');
+    return null;
+  }
 
   return (
-    <SignUpForm
-      className="w-screen max-w-screen-2xl px-4 md:px-16 lg:-my-16"
-      isGoogleSSOEnabled={isGoogleSSOEnabled}
-      isOIDCSSOEnabled={isOIDCSSOEnabled}
-    />
+    <div className="flex min-h-screen items-center justify-center">
+      <div className="w-full max-w-md">
+        <ClerkSignUp
+          redirectUrl="/"
+          signInUrl="/signin"
+          appearance={{
+            elements: {
+              rootBox: 'w-full',
+              card: 'w-full shadow-lg border rounded-xl bg-white dark:bg-neutral-900',
+              headerTitle: 'text-2xl font-semibold',
+              headerSubtitle: 'text-muted-foreground text-sm',
+              socialButtonsBlockButton:
+                'border border-gray-300 hover:bg-gray-50 dark:border-gray-600 dark:hover:bg-gray-800',
+              formButtonPrimary: 'bg-blue-600 hover:bg-blue-700 text-white',
+              footerActionLink: 'text-blue-600 hover:text-blue-700',
+            },
+          }}
+        />
+      </div>
+    </div>
   );
 }

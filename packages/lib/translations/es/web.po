@@ -3087,7 +3087,6 @@ msgstr ""
 msgid "Domain Name"
 msgstr ""
 
-#: apps/remix/app/routes/_unauthenticated+/signin.tsx
 #: apps/remix/app/routes/_unauthenticated+/reset-password.$token.tsx
 msgid "Don't have an account? <0>Sign up</0>"
 msgstr "¿No tienes una cuenta? <0>Regístrate</0>"
@@ -6221,7 +6220,6 @@ msgstr "Firmar aquí"
 msgid "Sign In"
 msgstr "Iniciar sesión"
 
-#: apps/remix/app/routes/_unauthenticated+/signin.tsx
 #: apps/remix/app/components/general/document-signing/document-signing-auth-dialog.tsx
 msgid "Sign in to your account"
 msgstr "Inicia sesión en tu cuenta"
@@ -8550,10 +8548,6 @@ msgstr "Webhooks"
 #: apps/remix/app/routes/_unauthenticated+/articles.signature-disclosure.tsx
 msgid "Welcome"
 msgstr "Bienvenido"
-
-#: apps/remix/app/routes/_unauthenticated+/signin.tsx
-msgid "Welcome back, we are lucky to have you."
-msgstr "Bienvenido de nuevo, somos afortunados de tenerte."
 
 #: apps/remix/app/routes/_authenticated+/dashboard.tsx
 msgid "Welcome back! Here's an overview of your account."
