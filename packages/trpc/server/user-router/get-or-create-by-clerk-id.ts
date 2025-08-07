@@ -2,9 +2,8 @@ import { z } from 'zod';
 
 import { NEXT_PUBLIC_WEBAPP_URL } from '@documenso/lib/constants/app';
 import { prisma } from '@documenso/prisma';
+import { IdentityProvider } from '@documenso/prisma/client';
 
-// Temporarily comment out until migration is deployed
-// import { IdentityProvider } from '@documenso/prisma/client';
 import { procedure } from '../trpc';
 
 export const ZGetOrCreateByClerkIdRequestSchema = z.object({
@@ -20,13 +19,10 @@ export const getOrCreateByClerkId = procedure
   .query(async ({ input }) => {
     const { clerkUserId, email, name } = input;
 
-    // Temporarily return a simple response until migration is deployed
-    // This will be activated once the clerkUserId field is available in the database
-
-    // Find user by email for now
-    const user = await prisma.user.findUnique({
+    // First try to find an existing user by Clerk ID
+    let user = await prisma.user.findUnique({
       where: {
-        email,
+        clerkUserId,
       },
     });
 
@@ -34,13 +30,33 @@ export const getOrCreateByClerkId = procedure
       return user;
     }
 
-    // Create a new user without Clerk fields for now
+    // If not found by Clerk ID, try to find by email and update with Clerk ID
+    user = await prisma.user.findUnique({
+      where: {
+        email,
+      },
+    });
+
+    if (user) {
+      // Update existing user with Clerk ID
+      return await prisma.user.update({
+        where: {
+          id: user.id,
+        },
+        data: {
+          clerkUserId,
+        },
+      });
+    }
+
+    // Create a new user
     return await prisma.user.create({
       data: {
+        clerkUserId,
         email,
         name: name || null,
         emailVerified: new Date(), // Clerk handles email verification
-        // identityProvider: IdentityProvider.CLERK, // Will be enabled after migration
+        identityProvider: IdentityProvider.CLERK,
         source: `Clerk - ${NEXT_PUBLIC_WEBAPP_URL()}`,
       },
     });
