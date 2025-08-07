@@ -14,7 +14,7 @@ import {
 import { Link, useLocation } from 'react-router';
 
 import { authClient } from '@documenso/auth/client';
-import { useSession } from '@documenso/lib/client-only/providers/clerk-session';
+import { useAuthenticatedUser } from '@documenso/lib/client-only/providers/clerk-session';
 import { useOptionalCurrentOrganisation } from '@documenso/lib/client-only/providers/organisation';
 import { EXTENDED_ORGANISATION_MEMBER_ROLE_MAP } from '@documenso/lib/constants/organisations-translations';
 import { EXTENDED_TEAM_MEMBER_ROLE_MAP } from '@documenso/lib/constants/teams-translations';
@@ -40,7 +40,7 @@ import { useOptionalCurrentTeam } from '~/providers/team';
 export const OrgMenuSwitcher = () => {
   const { _ } = useLingui();
 
-  const { user, organisations } = useSession();
+  const { user, organisations } = useAuthenticatedUser();
 
   const { pathname } = useLocation();
 

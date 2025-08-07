@@ -2,7 +2,7 @@ import { msg } from '@lingui/core/macro';
 import { useLingui } from '@lingui/react';
 import { AnimatePresence } from 'framer-motion';
 
-import { useSession } from '@documenso/lib/client-only/providers/clerk-session';
+import { useAuthenticatedUser } from '@documenso/lib/client-only/providers/clerk-session';
 import { isPersonalLayout } from '@documenso/lib/utils/organisations';
 import { trpc } from '@documenso/trpc/react';
 import { AnimateGenericFadeInOut } from '@documenso/ui/components/animate/animate-generic-fade-in-out';
@@ -20,7 +20,7 @@ export function meta() {
 
 export default function SettingsProfile() {
   const { _ } = useLingui();
-  const { organisations, user } = useSession();
+  const { organisations, user } = useAuthenticatedUser();
 
   const { data: teamEmail } = trpc.team.email.get.useQuery();
 

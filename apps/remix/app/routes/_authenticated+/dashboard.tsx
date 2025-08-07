@@ -5,7 +5,7 @@ import { Building2Icon, InboxIcon, SettingsIcon, UsersIcon } from 'lucide-react'
 import { DateTime } from 'luxon';
 import { Link, redirect } from 'react-router';
 
-import { useSession } from '@documenso/lib/client-only/providers/clerk-session';
+import { useAuthenticatedUser } from '@documenso/lib/client-only/providers/clerk-session';
 import { ORGANISATION_MEMBER_ROLE_MAP } from '@documenso/lib/constants/organisations-translations';
 import { TEAM_MEMBER_ROLE_MAP } from '@documenso/lib/constants/teams-translations';
 import { formatAvatarUrl } from '@documenso/lib/utils/avatars';
@@ -31,7 +31,7 @@ export function meta() {
 export default function DashboardPage() {
   const { t } = useLingui();
 
-  const { user, organisations } = useSession();
+  const { user, organisations } = useAuthenticatedUser();
 
   // Todo: Sort by recent access (TBD by cookies)
   // Teams, flattened with the organisation data still attached.

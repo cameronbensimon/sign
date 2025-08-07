@@ -10,7 +10,7 @@ import { match } from 'ts-pattern';
 
 import { useLimits } from '@documenso/ee/server-only/limits/provider/client';
 import { useAnalytics } from '@documenso/lib/client-only/hooks/use-analytics';
-import { useSession } from '@documenso/lib/client-only/providers/clerk-session';
+import { useAuthenticatedUser } from '@documenso/lib/client-only/providers/clerk-session';
 import { useCurrentOrganisation } from '@documenso/lib/client-only/providers/organisation';
 import { APP_DOCUMENT_UPLOAD_SIZE_LIMIT, IS_BILLING_ENABLED } from '@documenso/lib/constants/app';
 import { DEFAULT_DOCUMENT_TIME_ZONE, TIME_ZONES } from '@documenso/lib/constants/time-zones';
@@ -32,7 +32,7 @@ export interface DocumentDropZoneWrapperProps {
 export const DocumentDropZoneWrapper = ({ children, className }: DocumentDropZoneWrapperProps) => {
   const { _ } = useLingui();
   const { toast } = useToast();
-  const { user } = useSession();
+  const { user } = useAuthenticatedUser();
   const { folderId } = useParams();
 
   const team = useCurrentTeam();

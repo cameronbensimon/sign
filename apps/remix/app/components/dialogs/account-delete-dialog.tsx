@@ -5,7 +5,7 @@ import { useLingui } from '@lingui/react';
 import { Trans } from '@lingui/react/macro';
 
 import { authClient } from '@documenso/auth/client';
-import { useSession } from '@documenso/lib/client-only/providers/clerk-session';
+import { useAuthenticatedUser } from '@documenso/lib/client-only/providers/clerk-session';
 import { trpc } from '@documenso/trpc/react';
 import { Alert, AlertDescription, AlertTitle } from '@documenso/ui/primitives/alert';
 import { Button } from '@documenso/ui/primitives/button';
@@ -27,7 +27,7 @@ export type AccountDeleteDialogProps = {
 };
 
 export const AccountDeleteDialog = ({ className }: AccountDeleteDialogProps) => {
-  const { user } = useSession();
+  const { user } = useAuthenticatedUser();
 
   const { _ } = useLingui();
   const { toast } = useToast();

@@ -6,7 +6,7 @@ import { Trans } from '@lingui/react/macro';
 import { FilePlus, Loader } from 'lucide-react';
 import { useNavigate } from 'react-router';
 
-import { useSession } from '@documenso/lib/client-only/providers/clerk-session';
+import { useAuthenticatedUser } from '@documenso/lib/client-only/providers/clerk-session';
 import { putPdfFile } from '@documenso/lib/universal/upload/put-file';
 import { formatTemplatesPath } from '@documenso/lib/utils/teams';
 import { trpc } from '@documenso/trpc/react';
@@ -33,7 +33,7 @@ type TemplateCreateDialogProps = {
 export const TemplateCreateDialog = ({ folderId }: TemplateCreateDialogProps) => {
   const navigate = useNavigate();
 
-  const { user } = useSession();
+  const { user } = useAuthenticatedUser();
   const { toast } = useToast();
   const { _ } = useLingui();
 

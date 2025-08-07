@@ -8,7 +8,7 @@ import { Link } from 'react-router';
 import { match } from 'ts-pattern';
 
 import { downloadPDF } from '@documenso/lib/client-only/download-pdf';
-import { useSession } from '@documenso/lib/client-only/providers/clerk-session';
+import { useAuthenticatedUser } from '@documenso/lib/client-only/providers/clerk-session';
 import { isDocumentCompleted } from '@documenso/lib/utils/document';
 import { formatDocumentsPath } from '@documenso/lib/utils/teams';
 import { trpc as trpcClient } from '@documenso/trpc/client';
@@ -24,7 +24,7 @@ export type DocumentPageViewButtonProps = {
 };
 
 export const DocumentPageViewButton = ({ document }: DocumentPageViewButtonProps) => {
-  const { user } = useSession();
+  const { user } = useAuthenticatedUser();
 
   const { toast } = useToast();
   const { _ } = useLingui();

@@ -7,7 +7,7 @@ import { ChevronsUpDown, Plus } from 'lucide-react';
 import { Link } from 'react-router';
 
 import { authClient } from '@documenso/auth/client';
-import { useSession } from '@documenso/lib/client-only/providers/clerk-session';
+import { useAuthenticatedUser } from '@documenso/lib/client-only/providers/clerk-session';
 import { formatAvatarUrl } from '@documenso/lib/utils/avatars';
 import { isAdmin } from '@documenso/lib/utils/is-admin';
 import { extractInitials } from '@documenso/lib/utils/recipient-formatter';
@@ -26,7 +26,7 @@ import {
 export const MenuSwitcher = () => {
   const { _ } = useLingui();
 
-  const { user } = useSession();
+  const { user } = useAuthenticatedUser();
 
   const [languageSwitcherOpen, setLanguageSwitcherOpen] = useState(false);
 
