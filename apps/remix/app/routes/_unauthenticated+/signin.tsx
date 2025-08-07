@@ -27,7 +27,7 @@ export default function SignIn() {
     <div className="flex min-h-screen items-center justify-center">
       <div className="w-full max-w-md">
         <ClerkSignIn
-          redirectUrl="/"
+          fallbackRedirectUrl="/"
           signUpUrl="/signup"
           appearance={{
             elements: {
