@@ -1,10 +1,9 @@
-import { createContext, useCallback, useContext, useEffect, useState } from 'react';
+import { createContext, useCallback, useContext, useEffect, useRef, useState } from 'react';
 import React from 'react';
 
-import { useAuth, useOrganizationList, useUser } from '@clerk/react-router';
+import { useAuth, useUser } from '@clerk/react-router';
 import type { Session } from '@prisma/client';
 import { Role } from '@prisma/client';
-import { useLocation } from 'react-router';
 
 import type { SessionUser } from '@documenso/auth/server/lib/session/session';
 import { trpc } from '@documenso/trpc/client';
@@ -65,103 +64,152 @@ export const useOptionalSession = () => {
 export const ClerkSessionProvider = ({ children }: ClerkSessionProviderProps) => {
   const { isSignedIn, userId, sessionId } = useAuth();
   const { user: clerkUser } = useUser();
-  const { userMemberships } = useOrganizationList();
 
   const [session, setSession] = useState<ClerkAppSession | null>(null);
   const [isLoading, setIsLoading] = useState(true);
 
-  const location = useLocation();
+  // Use refs to avoid dependency loops
+  const lastRefreshTimeRef = useRef(0);
+  const isRefreshingRef = useRef(false);
+  const sessionRef = useRef<ClerkAppSession | null>(null);
 
-  const refreshSession = useCallback(async () => {
-    if (!isSignedIn || !clerkUser || !userId || !sessionId) {
-      console.log('ClerkSession: Not signed in or missing user data');
-      setSession(null);
-      setIsLoading(false);
-      return;
-    }
+  // Session cache duration (5 minutes)
+  const SESSION_CACHE_DURATION = 5 * 60 * 1000;
 
-    try {
-      setIsLoading(true);
-      console.log('ClerkSession: Refreshing session for user:', userId);
-
-      // Get user email
-      const email = clerkUser.primaryEmailAddress?.emailAddress;
-      if (!email) {
-        throw new Error('No email address found for Clerk user');
-      }
-
-      let localUser;
-      try {
-        // Try to get or create a local user record based on Clerk user ID
-        localUser = await trpc.user.getOrCreateByClerkId.query({
-          clerkUserId: userId,
-          email,
-          name: clerkUser.fullName || clerkUser.firstName || '',
-        });
-        console.log('ClerkSession: Successfully got/created local user:', localUser.id);
-      } catch (trpcError) {
-        console.error('ClerkSession: TRPC call failed, creating temporary user:', trpcError);
-        // Fallback: create a temporary user object
-        localUser = {
-          id: parseInt(userId.slice(-8), 16) || 1, // Convert part of Clerk ID to number as temp ID
-          name: clerkUser.fullName || clerkUser.firstName || 'Unknown',
-          email: email,
-          emailVerified:
-            clerkUser.primaryEmailAddress?.verification?.status === 'verified' ? new Date() : null,
-          avatarImageId: null,
-          twoFactorEnabled: false,
-          roles: [Role.USER],
-          signature: null,
-        };
-      }
-
-      // Get organisations from local database
-      let organisations: TGetOrganisationSessionResponse = [];
-      try {
-        organisations = await trpc.organisation.internal.getOrganisationSession.query(
-          undefined,
-          SKIP_QUERY_BATCH_META.trpc,
-        );
-        console.log('ClerkSession: Got organisations:', organisations.length);
-      } catch (orgError) {
-        console.error('ClerkSession: Failed to get organisations:', orgError);
-        organisations = [];
-      }
-
-      // Create a session object that matches the expected format
-      const sessionData: ClerkAppSession = {
-        session: {
-          id: sessionId,
-          userId: localUser.id,
-          createdAt: new Date(),
-          expiresAt: new Date(Date.now() + 1000 * 60 * 60 * 24 * 30), // 30 days
-        } as Session,
-        user: {
-          id: localUser.id,
-          name: localUser.name,
-          email: localUser.email,
-          emailVerified: localUser.emailVerified,
-          avatarImageId: localUser.avatarImageId || null,
-          twoFactorEnabled: localUser.twoFactorEnabled || false,
-          roles: localUser.roles || [Role.USER],
-          signature: localUser.signature || null,
-        } as SessionUser,
-        organisations,
-      };
-
-      console.log('ClerkSession: Successfully created session data');
-      setSession(sessionData);
-    } catch (error) {
-      console.error('ClerkSession: Failed to refresh session:', error);
-      setSession(null);
-    } finally {
-      setIsLoading(false);
-    }
-  }, [isSignedIn, clerkUser, userId, sessionId]);
-
+  // Update sessionRef when session changes
   useEffect(() => {
+    sessionRef.current = session;
+  }, [session]);
+
+  const refreshSession = useCallback(
+    async (force = false) => {
+      // Access clerkUser directly from hook (always current)
+      const currentClerkUser = clerkUser;
+
+      // Don't refresh if not authenticated or if already refreshing
+      if (!isSignedIn || !currentClerkUser || !userId || !sessionId || isRefreshingRef.current) {
+        if (!isSignedIn || !currentClerkUser || !userId || !sessionId) {
+          console.log('ClerkSession: Not signed in or missing user data');
+          setSession(null);
+          setIsLoading(false);
+        }
+        return;
+      }
+
+      // Check if session is still fresh (unless forced)
+      const now = Date.now();
+      if (
+        !force &&
+        sessionRef.current &&
+        now - lastRefreshTimeRef.current < SESSION_CACHE_DURATION
+      ) {
+        console.log('ClerkSession: Using cached session data');
+        setIsLoading(false);
+        return;
+      }
+
+      try {
+        isRefreshingRef.current = true;
+        setIsLoading(true);
+        console.log('ClerkSession: Refreshing session for user:', userId);
+
+        // Get user email
+        const email = currentClerkUser.primaryEmailAddress?.emailAddress;
+        if (!email) {
+          throw new Error('No email address found for Clerk user');
+        }
+
+        let localUser;
+        try {
+          // Try to get or create a local user record based on Clerk user ID
+          localUser = await trpc.user.getOrCreateByClerkId.query({
+            clerkUserId: userId,
+            email,
+            name: currentClerkUser.fullName || currentClerkUser.firstName || '',
+          });
+          console.log('ClerkSession: Successfully got/created local user:', localUser.id);
+        } catch (trpcError) {
+          console.error('ClerkSession: TRPC call failed, creating temporary user:', trpcError);
+          // Fallback: create a temporary user object
+          localUser = {
+            id: parseInt(userId.slice(-8), 16) || 1, // Convert part of Clerk ID to number as temp ID
+            name: currentClerkUser.fullName || currentClerkUser.firstName || 'Unknown',
+            email: email,
+            emailVerified:
+              currentClerkUser.primaryEmailAddress?.verification?.status === 'verified'
+                ? new Date()
+                : null,
+            avatarImageId: null,
+            twoFactorEnabled: false,
+            roles: [Role.USER],
+            signature: null,
+          };
+        }
+
+        // Get organisations from local database
+        let organisations: TGetOrganisationSessionResponse = [];
+        try {
+          organisations = await trpc.organisation.internal.getOrganisationSession.query(
+            undefined,
+            SKIP_QUERY_BATCH_META.trpc,
+          );
+          console.log('ClerkSession: Got organisations:', organisations.length);
+        } catch (orgError) {
+          console.error('ClerkSession: Failed to get organisations:', orgError);
+          organisations = [];
+        }
+
+        // Create a session object that matches the expected format
+        const sessionData: ClerkAppSession = {
+          session: {
+            id: sessionId,
+            userId: localUser.id,
+            createdAt: new Date(),
+            expiresAt: new Date(Date.now() + 1000 * 60 * 60 * 24 * 30), // 30 days
+          },
+          user: {
+            id: localUser.id,
+            name: localUser.name,
+            email: localUser.email,
+            emailVerified: localUser.emailVerified,
+            avatarImageId: localUser.avatarImageId || null,
+            twoFactorEnabled: localUser.twoFactorEnabled || false,
+            roles: localUser.roles || [Role.USER],
+            signature: localUser.signature || null,
+          },
+          organisations,
+        };
+
+        console.log('ClerkSession: Successfully created session data');
+        setSession(sessionData);
+        // Update refs after successful operation
+        const currentTime = Date.now();
+        // eslint-disable-next-line require-atomic-updates
+        lastRefreshTimeRef.current = currentTime;
+      } catch (error) {
+        console.error('ClerkSession: Failed to refresh session:', error);
+        setSession(null);
+      } finally {
+        setIsLoading(false);
+        // Reset refreshing flag
+        const isRefreshingCurrent = isRefreshingRef.current;
+        if (isRefreshingCurrent) {
+          isRefreshingRef.current = false;
+        }
+      }
+    },
+    [isSignedIn, userId, sessionId],
+  ); // Stable dependencies only - clerkUser accessed directly
+
+  // Single useEffect for session management
+  useEffect(() => {
+    // Only refresh on initial load or when auth state changes
+    void refreshSession();
+
+    // Set up window focus listener for session refresh (but not immediate)
     const onFocus = () => {
-      void refreshSession();
+      // Only refresh on focus if session is stale
+      void refreshSession(false);
     };
 
     window.addEventListener('focus', onFocus);
@@ -169,19 +217,7 @@ export const ClerkSessionProvider = ({ children }: ClerkSessionProviderProps) =>
     return () => {
       window.removeEventListener('focus', onFocus);
     };
-  }, [refreshSession]);
-
-  /**
-   * Refresh session in background on navigation.
-   */
-  useEffect(() => {
-    void refreshSession();
-  }, [location.pathname, refreshSession]);
-
-  // Initial session load
-  useEffect(() => {
-    void refreshSession();
-  }, [refreshSession]);
+  }, [refreshSession]); // Now refreshSession won't change constantly due to refs
 
   return (
     <ClerkSessionContext.Provider
