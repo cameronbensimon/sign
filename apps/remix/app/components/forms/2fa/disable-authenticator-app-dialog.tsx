@@ -9,7 +9,7 @@ import { useForm } from 'react-hook-form';
 import { z } from 'zod';
 
 import { authClient } from '@documenso/auth/client';
-import { useSession } from '@documenso/lib/client-only/providers/session';
+import { useSession } from '@documenso/lib/client-only/providers/clerk-session';
 import { Button } from '@documenso/ui/primitives/button';
 import {
   Dialog,

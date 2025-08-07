@@ -7,7 +7,7 @@ import type { Field } from '@prisma/client';
 import { useForm } from 'react-hook-form';
 import { z } from 'zod';
 
-import { useOptionalSession } from '@documenso/lib/client-only/providers/session';
+import { useOptionalSession } from '@documenso/lib/client-only/providers/clerk-session';
 import type { TTemplate } from '@documenso/lib/types/template';
 import {
   DocumentReadOnlyFields,

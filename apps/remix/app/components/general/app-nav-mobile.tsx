@@ -7,7 +7,7 @@ import { Link } from 'react-router';
 
 import LogoImage from '@documenso/assets/logo.png';
 import { authClient } from '@documenso/auth/client';
-import { useSession } from '@documenso/lib/client-only/providers/session';
+import { useSession } from '@documenso/lib/client-only/providers/clerk-session';
 import { isPersonalLayout } from '@documenso/lib/utils/organisations';
 import { trpc } from '@documenso/trpc/react';
 import { Sheet, SheetContent } from '@documenso/ui/primitives/sheet';

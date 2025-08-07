@@ -5,7 +5,7 @@ import type { Recipient, Template, TemplateDirectLink } from '@prisma/client';
 import { Copy, Edit, FolderIcon, MoreHorizontal, Share2Icon, Trash2, Upload } from 'lucide-react';
 import { Link } from 'react-router';
 
-import { useSession } from '@documenso/lib/client-only/providers/session';
+import { useSession } from '@documenso/lib/client-only/providers/clerk-session';
 import {
   DropdownMenu,
   DropdownMenuContent,

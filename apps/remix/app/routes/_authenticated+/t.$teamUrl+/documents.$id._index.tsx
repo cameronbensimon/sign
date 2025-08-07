@@ -6,7 +6,7 @@ import { Link, redirect } from 'react-router';
 import { match } from 'ts-pattern';
 
 import { getSession } from '@documenso/auth/server/lib/utils/get-session';
-import { useSession } from '@documenso/lib/client-only/providers/session';
+import { useSession } from '@documenso/lib/client-only/providers/clerk-session';
 import { getDocumentWithDetailsById } from '@documenso/lib/server-only/document/get-document-with-details-by-id';
 import { getTeamByUrl } from '@documenso/lib/server-only/team/get-team';
 import { DocumentVisibility } from '@documenso/lib/types/document-visibility';

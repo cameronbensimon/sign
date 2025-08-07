@@ -6,8 +6,8 @@ import { Upload } from 'lucide-react';
 import { useDropzone } from 'react-dropzone';
 import { Link } from 'react-router';
 
+import { useSession } from '@documenso/lib/client-only/providers/clerk-session';
 import { useCurrentOrganisation } from '@documenso/lib/client-only/providers/organisation';
-import { useSession } from '@documenso/lib/client-only/providers/session';
 import { APP_DOCUMENT_UPLOAD_SIZE_LIMIT, IS_BILLING_ENABLED } from '@documenso/lib/constants/app';
 import { megabytesToBytes } from '@documenso/lib/universal/unit-convertions';
 import { isPersonalLayout } from '@documenso/lib/utils/organisations';

@@ -6,7 +6,7 @@ import type { TemplateDirectLink } from '@prisma/client';
 import { TemplateType } from '@prisma/client';
 
 import { getSession } from '@documenso/auth/server/lib/utils/get-session';
-import { useSession } from '@documenso/lib/client-only/providers/session';
+import { useSession } from '@documenso/lib/client-only/providers/clerk-session';
 import { getTeamByUrl } from '@documenso/lib/server-only/team/get-team';
 import { getTeamPublicProfile } from '@documenso/lib/server-only/team/get-team-public-profile';
 import { trpc } from '@documenso/trpc/react';

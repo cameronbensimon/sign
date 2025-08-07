@@ -12,7 +12,7 @@ import { match } from 'ts-pattern';
 
 import { downloadPDF } from '@documenso/lib/client-only/download-pdf';
 import { useUpdateSearchParams } from '@documenso/lib/client-only/hooks/use-update-search-params';
-import { useSession } from '@documenso/lib/client-only/providers/session';
+import { useSession } from '@documenso/lib/client-only/providers/clerk-session';
 import { isDocumentCompleted } from '@documenso/lib/utils/document';
 import { trpc as trpcClient } from '@documenso/trpc/client';
 import { trpc } from '@documenso/trpc/react';

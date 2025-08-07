@@ -14,7 +14,7 @@ import type { z } from 'zod';
 
 import type { InternalClaimPlans } from '@documenso/ee/server-only/stripe/get-internal-claim-plans';
 import { useUpdateSearchParams } from '@documenso/lib/client-only/hooks/use-update-search-params';
-import { useSession } from '@documenso/lib/client-only/providers/session';
+import { useSession } from '@documenso/lib/client-only/providers/clerk-session';
 import { IS_BILLING_ENABLED } from '@documenso/lib/constants/app';
 import { AppError } from '@documenso/lib/errors/app-error';
 import { INTERNAL_CLAIM_ID } from '@documenso/lib/types/subscription';

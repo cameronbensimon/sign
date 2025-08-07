@@ -5,7 +5,7 @@ import { Trans } from '@lingui/react/macro';
 import { useForm } from 'react-hook-form';
 import { z } from 'zod';
 
-import { useSession } from '@documenso/lib/client-only/providers/session';
+import { useSession } from '@documenso/lib/client-only/providers/clerk-session';
 import { trpc } from '@documenso/trpc/react';
 import { cn } from '@documenso/ui/lib/utils';
 import { Button } from '@documenso/ui/primitives/button';

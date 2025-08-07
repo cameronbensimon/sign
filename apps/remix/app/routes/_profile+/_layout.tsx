@@ -7,7 +7,7 @@ import { ChevronLeft } from 'lucide-react';
 import { Link, Outlet, isRouteErrorResponse } from 'react-router';
 
 import LogoIcon from '@documenso/assets/logo_icon.png';
-import { useOptionalSession } from '@documenso/lib/client-only/providers/session';
+import { useOptionalSession } from '@documenso/lib/client-only/providers/clerk-session';
 import { cn } from '@documenso/ui/lib/utils';
 import { Button } from '@documenso/ui/primitives/button';
 

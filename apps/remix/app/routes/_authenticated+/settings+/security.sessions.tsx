@@ -7,7 +7,7 @@ import { DateTime } from 'luxon';
 import { UAParser } from 'ua-parser-js';
 
 import { authClient } from '@documenso/auth/client';
-import { useSession } from '@documenso/lib/client-only/providers/session';
+import { useSession } from '@documenso/lib/client-only/providers/clerk-session';
 import { Badge } from '@documenso/ui/primitives/badge';
 import { Button } from '@documenso/ui/primitives/button';
 import type { DataTableColumnDef } from '@documenso/ui/primitives/data-table';

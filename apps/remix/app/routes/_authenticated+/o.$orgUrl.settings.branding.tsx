@@ -2,8 +2,8 @@ import { Trans, useLingui } from '@lingui/react/macro';
 import { Loader } from 'lucide-react';
 import { Link } from 'react-router';
 
+import { useSession } from '@documenso/lib/client-only/providers/clerk-session';
 import { useCurrentOrganisation } from '@documenso/lib/client-only/providers/organisation';
-import { useSession } from '@documenso/lib/client-only/providers/session';
 import { IS_BILLING_ENABLED } from '@documenso/lib/constants/app';
 import { putFile } from '@documenso/lib/universal/upload/put-file';
 import { canExecuteOrganisationAction, isPersonalLayout } from '@documenso/lib/utils/organisations';

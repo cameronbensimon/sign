@@ -12,8 +12,8 @@ import { motion } from 'framer-motion';
 import { GripVerticalIcon, HelpCircle, Link2Icon, Plus, Trash } from 'lucide-react';
 import { useFieldArray, useForm } from 'react-hook-form';
 
+import { useSession } from '@documenso/lib/client-only/providers/clerk-session';
 import { useCurrentOrganisation } from '@documenso/lib/client-only/providers/organisation';
-import { useSession } from '@documenso/lib/client-only/providers/session';
 import { ZRecipientAuthOptionsSchema } from '@documenso/lib/types/document-auth';
 import { nanoid } from '@documenso/lib/universal/id';
 import { generateRecipientPlaceholder } from '@documenso/lib/utils/templates';

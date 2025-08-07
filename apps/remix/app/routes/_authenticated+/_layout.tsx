@@ -1,10 +1,10 @@
+import { getAuth } from '@clerk/react-router/ssr.server';
 import { msg } from '@lingui/core/macro';
 import { Trans } from '@lingui/react/macro';
 import { Link, Outlet, redirect } from 'react-router';
 
-import { getOptionalSession } from '@documenso/auth/server/lib/utils/get-session';
+import { useSession } from '@documenso/lib/client-only/providers/clerk-session';
 import { OrganisationProvider } from '@documenso/lib/client-only/providers/organisation';
-import { useSession } from '@documenso/lib/client-only/providers/session';
 import { getSiteSettings } from '@documenso/lib/server-only/site-settings/get-site-settings';
 import { SITE_SETTINGS_BANNER_ID } from '@documenso/lib/server-only/site-settings/schemas/banner';
 import { Button } from '@documenso/ui/primitives/button';
@@ -25,17 +25,16 @@ import type { Route } from './+types/_layout';
  */
 export const shouldRevalidate = () => false;
 
-export async function loader({ request }: Route.LoaderArgs) {
-  const [session, banner] = await Promise.all([
-    getOptionalSession(request),
-    getSiteSettings().then((settings) =>
-      settings.find((setting) => setting.id === SITE_SETTINGS_BANNER_ID),
-    ),
-  ]);
+export async function loader(args: Route.LoaderArgs) {
+  const { userId } = await getAuth(args);
 
-  if (!session.isAuthenticated) {
+  if (!userId) {
     throw redirect('/signin');
   }
+
+  const banner = await getSiteSettings().then((settings) =>
+    settings.find((setting) => setting.id === SITE_SETTINGS_BANNER_ID),
+  );
 
   return {
     banner,

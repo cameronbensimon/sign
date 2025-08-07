@@ -8,7 +8,7 @@ import { Controller, useForm } from 'react-hook-form';
 import { useNavigate } from 'react-router';
 
 import { useAnalytics } from '@documenso/lib/client-only/hooks/use-analytics';
-import { useOptionalSession } from '@documenso/lib/client-only/providers/session';
+import { useOptionalSession } from '@documenso/lib/client-only/providers/clerk-session';
 import type { DocumentAndSender } from '@documenso/lib/server-only/document/get-document-by-token';
 import type { TRecipientActionAuth } from '@documenso/lib/types/document-auth';
 import { isFieldUnsignedAndRequired } from '@documenso/lib/utils/advanced-fields-helpers';

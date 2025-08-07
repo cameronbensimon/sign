@@ -5,7 +5,7 @@ import { Building2Icon, InboxIcon, SettingsIcon, UsersIcon } from 'lucide-react'
 import { DateTime } from 'luxon';
 import { Link, redirect } from 'react-router';
 
-import { useSession } from '@documenso/lib/client-only/providers/session';
+import { useSession } from '@documenso/lib/client-only/providers/clerk-session';
 import { ORGANISATION_MEMBER_ROLE_MAP } from '@documenso/lib/constants/organisations-translations';
 import { TEAM_MEMBER_ROLE_MAP } from '@documenso/lib/constants/teams-translations';
 import { formatAvatarUrl } from '@documenso/lib/utils/avatars';

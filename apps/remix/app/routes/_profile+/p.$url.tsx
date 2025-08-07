@@ -3,7 +3,7 @@ import { FileIcon } from 'lucide-react';
 import { DateTime } from 'luxon';
 import { Link, redirect } from 'react-router';
 
-import { useOptionalSession } from '@documenso/lib/client-only/providers/session';
+import { useOptionalSession } from '@documenso/lib/client-only/providers/clerk-session';
 import { getPublicProfileByUrl } from '@documenso/lib/server-only/profile/get-public-profile-by-url';
 import { formatAvatarUrl } from '@documenso/lib/utils/avatars';
 import { extractInitials } from '@documenso/lib/utils/recipient-formatter';

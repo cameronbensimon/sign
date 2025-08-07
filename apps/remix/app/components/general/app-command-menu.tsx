@@ -9,7 +9,7 @@ import { useHotkeys } from 'react-hotkeys-hook';
 import { useNavigate } from 'react-router';
 import { Theme, useTheme } from 'remix-themes';
 
-import { useSession } from '@documenso/lib/client-only/providers/session';
+import { useSession } from '@documenso/lib/client-only/providers/clerk-session';
 import { SUPPORTED_LANGUAGES } from '@documenso/lib/constants/i18n';
 import {
   DOCUMENTS_PAGE_SHORTCUT,

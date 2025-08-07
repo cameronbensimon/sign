@@ -9,7 +9,7 @@ import { useForm } from 'react-hook-form';
 import { match } from 'ts-pattern';
 import { z } from 'zod';
 
-import { useSession } from '@documenso/lib/client-only/providers/session';
+import { useSession } from '@documenso/lib/client-only/providers/clerk-session';
 import { AppError } from '@documenso/lib/errors/app-error';
 import { base64 } from '@documenso/lib/universal/base64';
 import { formatAvatarUrl } from '@documenso/lib/utils/avatars';

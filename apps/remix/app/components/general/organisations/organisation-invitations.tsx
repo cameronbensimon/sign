@@ -5,7 +5,7 @@ import { OrganisationMemberInviteStatus } from '@prisma/client';
 import { AnimatePresence } from 'framer-motion';
 import { BellIcon } from 'lucide-react';
 
-import { useSession } from '@documenso/lib/client-only/providers/session';
+import { useSession } from '@documenso/lib/client-only/providers/clerk-session';
 import { formatAvatarUrl } from '@documenso/lib/utils/avatars';
 import { trpc } from '@documenso/trpc/react';
 import { AnimateGenericFadeInOut } from '@documenso/ui/components/animate/animate-generic-fade-in-out';

@@ -2,7 +2,7 @@ import { Trans } from '@lingui/react/macro';
 import { ChevronLeft } from 'lucide-react';
 import { Link, Outlet, isRouteErrorResponse } from 'react-router';
 
-import { useOptionalSession } from '@documenso/lib/client-only/providers/session';
+import { useOptionalSession } from '@documenso/lib/client-only/providers/clerk-session';
 import { Button } from '@documenso/ui/primitives/button';
 
 import { Header as AuthenticatedHeader } from '~/components/general/app-header';

@@ -16,12 +16,11 @@ import {
 } from 'react-router';
 import { PreventFlashOnWrongTheme, ThemeProvider, useTheme } from 'remix-themes';
 
-import { getOptionalSession } from '@documenso/auth/server/lib/utils/get-session';
+import { ClerkSessionProvider } from '@documenso/lib/client-only/providers/clerk-session';
 import { APP_I18N_OPTIONS, type SupportedLanguageCodes } from '@documenso/lib/constants/i18n';
 import { createPublicEnv, env } from '@documenso/lib/utils/env';
 import { extractLocaleData } from '@documenso/lib/utils/i18n';
 import { TrpcProvider } from '@documenso/trpc/react';
-import { getOrganisationSession } from '@documenso/trpc/server/organisation-router/get-organisation-session';
 import { Toaster } from '@documenso/ui/primitives/toaster';
 import { TooltipProvider } from '@documenso/ui/primitives/tooltip';
 
@@ -52,8 +51,6 @@ export const shouldRevalidate = () => false;
 
 export async function loader(args: Route.LoaderArgs) {
   return rootAuthLoader(args, async ({ request }) => {
-    const session = await getOptionalSession(request);
-
     const { getTheme } = await themeSessionResolver(request);
 
     let lang: SupportedLanguageCodes = await langCookie.parse(request.headers.get('cookie') ?? '');
@@ -62,23 +59,10 @@ export async function loader(args: Route.LoaderArgs) {
       lang = extractLocaleData({ headers: request.headers }).lang;
     }
 
-    let organisations = null;
-
-    if (session.isAuthenticated) {
-      organisations = await getOrganisationSession({ userId: session.user.id });
-    }
-
     return data(
       {
         lang,
         theme: getTheme(),
-        session: session.isAuthenticated
-          ? {
-              user: session.user,
-              session: session.session,
-              organisations: organisations || [],
-            }
-          : null,
         publicEnv: createPublicEnv(),
       },
       {
@@ -136,13 +120,15 @@ export function LayoutContent({ children }: { children: React.ReactNode }) {
           publishableKey={publicEnv.VITE_CLERK_PUBLISHABLE_KEY || ''}
           loaderData={data}
         >
-          <TooltipProvider>
-            <TrpcProvider>
-              {children}
+          <ClerkSessionProvider>
+            <TooltipProvider>
+              <TrpcProvider>
+                {children}
 
-              <Toaster />
-            </TrpcProvider>
-          </TooltipProvider>
+                <Toaster />
+              </TrpcProvider>
+            </TooltipProvider>
+          </ClerkSessionProvider>
         </ClerkProvider>
 
         <ScrollRestoration />

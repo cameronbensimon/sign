@@ -9,7 +9,7 @@ import { AnimatePresence } from 'framer-motion';
 import { Search } from 'lucide-react';
 import { Link, useLocation } from 'react-router';
 
-import { useSession } from '@documenso/lib/client-only/providers/session';
+import { useSession } from '@documenso/lib/client-only/providers/clerk-session';
 import { isPersonalLayout } from '@documenso/lib/utils/organisations';
 import { cn } from '@documenso/ui/lib/utils';
 import { Button } from '@documenso/ui/primitives/button';

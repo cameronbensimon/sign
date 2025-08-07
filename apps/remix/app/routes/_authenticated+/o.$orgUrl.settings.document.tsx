@@ -1,8 +1,8 @@
 import { useLingui } from '@lingui/react/macro';
 import { Loader } from 'lucide-react';
 
+import { useSession } from '@documenso/lib/client-only/providers/clerk-session';
 import { useCurrentOrganisation } from '@documenso/lib/client-only/providers/organisation';
-import { useSession } from '@documenso/lib/client-only/providers/session';
 import { DocumentSignatureType } from '@documenso/lib/constants/document';
 import { isPersonalLayout } from '@documenso/lib/utils/organisations';
 import { trpc } from '@documenso/trpc/react';

@@ -10,8 +10,8 @@ import { useSearchParams } from 'react-router';
 import type { z } from 'zod';
 
 import { useUpdateSearchParams } from '@documenso/lib/client-only/hooks/use-update-search-params';
+import { useSession } from '@documenso/lib/client-only/providers/clerk-session';
 import { useCurrentOrganisation } from '@documenso/lib/client-only/providers/organisation';
-import { useSession } from '@documenso/lib/client-only/providers/session';
 import {
   IS_BILLING_ENABLED,
   NEXT_PUBLIC_WEBAPP_URL,

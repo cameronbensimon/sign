@@ -4,7 +4,7 @@ import { redirect } from 'react-router';
 import { match } from 'ts-pattern';
 
 import { getOptionalSession } from '@documenso/auth/server/lib/utils/get-session';
-import { useOptionalSession } from '@documenso/lib/client-only/providers/session';
+import { useOptionalSession } from '@documenso/lib/client-only/providers/clerk-session';
 import { getTemplateByDirectLinkToken } from '@documenso/lib/server-only/template/get-template-by-direct-link-token';
 import { DocumentAccessAuth } from '@documenso/lib/types/document-auth';
 import { extractDocumentAuthMethods } from '@documenso/lib/utils/document-auth';

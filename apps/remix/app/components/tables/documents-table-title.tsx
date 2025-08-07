@@ -1,7 +1,7 @@
 import { Link } from 'react-router';
 import { match } from 'ts-pattern';
 
-import { useSession } from '@documenso/lib/client-only/providers/session';
+import { useSession } from '@documenso/lib/client-only/providers/clerk-session';
 import type { TDocumentMany as TDocumentRow } from '@documenso/lib/types/document';
 import { formatDocumentsPath } from '@documenso/lib/utils/teams';
 

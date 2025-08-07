@@ -9,7 +9,7 @@ import { History } from 'lucide-react';
 import { useForm } from 'react-hook-form';
 import * as z from 'zod';
 
-import { useSession } from '@documenso/lib/client-only/providers/session';
+import { useSession } from '@documenso/lib/client-only/providers/clerk-session';
 import { getRecipientType } from '@documenso/lib/client-only/recipient-type';
 import type { TDocumentMany as TDocumentRow } from '@documenso/lib/types/document';
 import { recipientAbbreviation } from '@documenso/lib/utils/recipient-formatter';

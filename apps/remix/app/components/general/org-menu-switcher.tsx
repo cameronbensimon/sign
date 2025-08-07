@@ -14,8 +14,8 @@ import {
 import { Link, useLocation } from 'react-router';
 
 import { authClient } from '@documenso/auth/client';
+import { useSession } from '@documenso/lib/client-only/providers/clerk-session';
 import { useOptionalCurrentOrganisation } from '@documenso/lib/client-only/providers/organisation';
-import { useSession } from '@documenso/lib/client-only/providers/session';
 import { EXTENDED_ORGANISATION_MEMBER_ROLE_MAP } from '@documenso/lib/constants/organisations-translations';
 import { EXTENDED_TEAM_MEMBER_ROLE_MAP } from '@documenso/lib/constants/teams-translations';
 import { formatAvatarUrl } from '@documenso/lib/utils/avatars';

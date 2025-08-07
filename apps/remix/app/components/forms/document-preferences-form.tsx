@@ -7,7 +7,7 @@ import { DocumentVisibility } from '@prisma/client';
 import { useForm } from 'react-hook-form';
 import { z } from 'zod';
 
-import { useSession } from '@documenso/lib/client-only/providers/session';
+import { useSession } from '@documenso/lib/client-only/providers/clerk-session';
 import { DATE_FORMATS } from '@documenso/lib/constants/date-formats';
 import { DOCUMENT_SIGNATURE_TYPES, DocumentSignatureType } from '@documenso/lib/constants/document';
 import {

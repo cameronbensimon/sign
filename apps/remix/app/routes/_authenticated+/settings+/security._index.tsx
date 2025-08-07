@@ -4,7 +4,7 @@ import { Trans } from '@lingui/react/macro';
 import { Link } from 'react-router';
 
 import { getSession } from '@documenso/auth/server/lib/utils/get-session';
-import { useSession } from '@documenso/lib/client-only/providers/session';
+import { useSession } from '@documenso/lib/client-only/providers/clerk-session';
 import { prisma } from '@documenso/prisma';
 import { Alert, AlertDescription, AlertTitle } from '@documenso/ui/primitives/alert';
 import { Button } from '@documenso/ui/primitives/button';

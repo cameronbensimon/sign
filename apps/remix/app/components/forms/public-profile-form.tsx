@@ -12,7 +12,7 @@ import { useForm } from 'react-hook-form';
 import type { z } from 'zod';
 
 import { useCopyToClipboard } from '@documenso/lib/client-only/hooks/use-copy-to-clipboard';
-import { useSession } from '@documenso/lib/client-only/providers/session';
+import { useSession } from '@documenso/lib/client-only/providers/clerk-session';
 import { AppError, AppErrorCode } from '@documenso/lib/errors/app-error';
 import { isPersonalLayout } from '@documenso/lib/utils/organisations';
 import { formatUserProfilePath } from '@documenso/lib/utils/public-profiles';
