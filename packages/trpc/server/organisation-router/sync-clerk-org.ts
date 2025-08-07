@@ -1,6 +1,7 @@
 import { z } from 'zod';
 
 import { ORGANISATION_INTERNAL_GROUPS } from '@documenso/lib/constants/organisations';
+import { createTeam } from '@documenso/lib/server-only/team/create-team';
 import { prefixedId } from '@documenso/lib/universal/id';
 import { prisma } from '@documenso/prisma';
 import { OrganisationMemberRole, OrganisationType, TeamMemberRole } from '@documenso/prisma/client';
@@ -240,6 +241,22 @@ async function syncOrganizationInternal({
           },
         });
       }
+    }
+  }
+
+  // Ensure at least one team exists for this organisation
+  const teamCount = await prisma.team.count({ where: { organisationId: organisation.id } });
+  if (teamCount === 0) {
+    try {
+      await createTeam({
+        userId,
+        teamName: 'General',
+        teamUrl: prefixedId('team'),
+        organisationId: organisation.id,
+        inheritMembers: true,
+      });
+    } catch (err) {
+      console.error('syncClerkOrg: failed creating default team', err);
     }
   }
 
