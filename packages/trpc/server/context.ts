@@ -21,21 +21,41 @@ type CreateTrpcContextOptions = {
   requestSource: 'app' | 'apiV1' | 'apiV2';
 };
 
-// Helper function to get Clerk session information from request headers
+// Helper function to get Clerk session information from request headers/cookies
 const getClerkSessionFromHeaders = (req: Request): SessionValidationResult => {
   try {
-    // Look for Clerk session token in headers (set by TRPC client)
-    const clerkSessionId = req.headers.get('x-clerk-session-id');
-    const clerkUserId = req.headers.get('x-clerk-user-id');
+    // First try custom headers (for backwards compatibility)
+    let clerkSessionId = req.headers.get('x-clerk-session-id');
+    let clerkUserId = req.headers.get('x-clerk-user-id');
 
-    console.log('TRPC Context: All request headers:', Object.fromEntries(req.headers.entries()));
-    console.log('TRPC Context: Clerk headers lookup:', { clerkUserId, clerkSessionId });
+    // If no custom headers, try to extract from Clerk session cookies
+    if (!clerkSessionId || !clerkUserId) {
+      const cookies = req.headers.get('cookie');
+      if (cookies) {
+        // Look for __session cookie which contains the Clerk JWT
+        const sessionMatch = cookies.match(/__session=([^;]+)/);
+        if (sessionMatch) {
+          try {
+            // Decode JWT payload (second part of JWT)
+            const jwtPayload = sessionMatch[1].split('.')[1];
+            const decodedPayload = JSON.parse(
+              atob(jwtPayload.replace(/-/g, '+').replace(/_/g, '/')),
+            );
+
+            clerkUserId = decodedPayload.sub;
+            clerkSessionId = decodedPayload.sid;
+
+            console.log('TRPC Context: Authenticated via Clerk JWT:', { clerkUserId });
+          } catch (jwtError) {
+            console.error('TRPC Context: Error decoding Clerk JWT:', jwtError);
+          }
+        }
+      }
+    }
 
     if (!clerkSessionId || !clerkUserId) {
       return { session: null, user: null, isAuthenticated: false };
     }
-
-    console.log('TRPC Context: Found Clerk auth headers', { clerkUserId, clerkSessionId });
 
     // Create a temporary session that works even without database migration
     // This allows TRPC to work immediately while the database migration is pending
@@ -61,7 +81,7 @@ const getClerkSessionFromHeaders = (req: Request): SessionValidationResult => {
       sessionToken: clerkSessionId, // Use the Clerk session ID as the token
     };
 
-    console.log('TRPC Context: Created mock session for Clerk user');
+    console.log('TRPC Context: Created session for Clerk user:', mockUser.id);
     return { session: mockSession, user: mockUser, isAuthenticated: true };
   } catch (error) {
     console.error('TRPC Context: Error getting Clerk session:', error);
@@ -77,24 +97,13 @@ export const createTrpcContext = async ({
 
   // Try to get session from NextAuth first (backwards compatibility)
   let sessionResult = await getOptionalSession(c);
-  console.log('TRPC Context: NextAuth session result:', {
-    hasSession: !!sessionResult.session,
-    hasUser: !!sessionResult.user,
-  });
 
   // If no NextAuth session, try to get Clerk session
   if (!sessionResult.session || !sessionResult.user) {
-    console.log('TRPC Context: No NextAuth session, trying Clerk...');
     sessionResult = getClerkSessionFromHeaders(req);
   }
 
   const { session, user } = sessionResult;
-  console.log('TRPC Context: Final session result:', {
-    hasSession: !!session,
-    hasUser: !!user,
-    userId: user?.id,
-    sessionId: session?.id,
-  });
 
   const requestMetadata = c.get('context').requestMetadata;
 
