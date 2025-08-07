@@ -12,7 +12,7 @@ import type { RootApiLog } from '@documenso/lib/types/api-logs';
 import type { ApiRequestMetadata } from '@documenso/lib/universal/extract-request-metadata';
 import { alphaid } from '@documenso/lib/universal/id';
 import { logger } from '@documenso/lib/utils/logger';
-import { Role } from '@documenso/prisma/client';
+import { prisma } from '@documenso/prisma';
 // This is a bit nasty. Todo: Extract
 import type { HonoEnv } from '@documenso/remix/server/router';
 
@@ -22,7 +22,7 @@ type CreateTrpcContextOptions = {
 };
 
 // Helper function to get Clerk session information from request headers/cookies
-const getClerkSessionFromHeaders = (req: Request): SessionValidationResult => {
+const getClerkSessionFromHeaders = async (req: Request): Promise<SessionValidationResult> => {
   try {
     // First try custom headers (for backwards compatibility)
     let clerkSessionId = req.headers.get('x-clerk-session-id');
@@ -57,32 +57,40 @@ const getClerkSessionFromHeaders = (req: Request): SessionValidationResult => {
       return { session: null, user: null, isAuthenticated: false };
     }
 
-    // Create a temporary session that works even without database migration
-    // This allows TRPC to work immediately while the database migration is pending
-    const mockUser: SessionUser = {
-      id: parseInt(clerkUserId.slice(-8), 16) || 1, // Convert part of Clerk ID to number
-      name: 'Clerk User', // This will be populated by the frontend session provider
-      email: 'temp@clerk.user', // This will be populated by the frontend session provider
-      emailVerified: new Date(),
-      avatarImageId: null,
-      twoFactorEnabled: false,
-      roles: [Role.USER],
-      signature: null,
-    };
+    // Look up the actual user in the database by Clerk ID
+    let user = null;
+    try {
+      user = await prisma.user.findUnique({
+        where: {
+          clerkUserId: clerkUserId,
+        },
+      });
 
-    const mockSession: Session = {
+      if (!user) {
+        console.log('TRPC Context: No user found for Clerk ID:', clerkUserId);
+        return { session: null, user: null, isAuthenticated: false };
+      }
+
+      console.log('TRPC Context: Found user for Clerk ID:', { userId: user.id, email: user.email });
+    } catch (dbError) {
+      console.error('TRPC Context: Database error looking up user:', dbError);
+      return { session: null, user: null, isAuthenticated: false };
+    }
+
+    // Create a session object for the real user
+    const realSession: Session = {
       id: clerkSessionId,
-      userId: mockUser.id,
+      userId: user.id,
       createdAt: new Date(),
       expiresAt: new Date(Date.now() + 1000 * 60 * 60 * 24 * 30), // 30 days
       ipAddress: null,
       userAgent: null,
       updatedAt: new Date(),
-      sessionToken: clerkSessionId, // Use the Clerk session ID as the token
+      sessionToken: clerkSessionId,
     };
 
-    console.log('TRPC Context: Created session for Clerk user:', mockUser.id);
-    return { session: mockSession, user: mockUser, isAuthenticated: true };
+    console.log('TRPC Context: Created session for real user:', user.id);
+    return { session: realSession, user, isAuthenticated: true };
   } catch (error) {
     console.error('TRPC Context: Error getting Clerk session:', error);
     return { session: null, user: null, isAuthenticated: false };
@@ -100,7 +108,7 @@ export const createTrpcContext = async ({
 
   // If no NextAuth session, try to get Clerk session
   if (!sessionResult.session || !sessionResult.user) {
-    sessionResult = getClerkSessionFromHeaders(req);
+    sessionResult = await getClerkSessionFromHeaders(req);
   }
 
   const { session, user } = sessionResult;
