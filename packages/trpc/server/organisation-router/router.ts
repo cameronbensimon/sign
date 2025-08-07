@@ -18,6 +18,7 @@ import { getOrganisationSessionRoute } from './get-organisation-session';
 import { getOrganisationsRoute } from './get-organisations';
 import { leaveOrganisationRoute } from './leave-organisation';
 import { resendOrganisationMemberInviteRoute } from './resend-organisation-member-invite';
+import { syncClerkOrganization } from './sync-clerk-org';
 import { updateOrganisationRoute } from './update-organisation';
 import { updateOrganisationGroupRoute } from './update-organisation-group';
 import { updateOrganisationMemberRoute } from './update-organisation-members';
@@ -56,5 +57,6 @@ export const organisationRouter = router({
   },
   internal: {
     getOrganisationSession: getOrganisationSessionRoute,
+    syncClerkOrg: syncClerkOrganization,
   },
 });

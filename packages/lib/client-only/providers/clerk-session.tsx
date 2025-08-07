@@ -36,18 +36,33 @@ export const useSession = () => {
     throw new Error('useSession must be used within a ClerkSessionProvider');
   }
 
-  // Don't throw error if session is loading - this allows components to handle loading state
+  // Don't throw error if session is loading or missing - let components handle gracefully
   if (!context.sessionData) {
     if (context.isLoading) {
-      throw new Error('Session is still loading');
+      // Return loading state instead of throwing
+      return {
+        session: null,
+        user: null,
+        organisations: [],
+        refreshSession: context.refreshSession,
+        isLoading: true,
+      };
     } else {
-      throw new Error('Session not found');
+      // Return null state instead of throwing
+      return {
+        session: null,
+        user: null,
+        organisations: [],
+        refreshSession: context.refreshSession,
+        isLoading: false,
+      };
     }
   }
 
   return {
     ...context.sessionData,
     refreshSession: context.refreshSession,
+    isLoading: context.isLoading,
   };
 };
 
@@ -64,6 +79,7 @@ export const useOptionalSession = () => {
 export const ClerkSessionProvider = ({ children }: ClerkSessionProviderProps) => {
   const { isSignedIn, userId, sessionId } = useAuth();
   const { user: clerkUser } = useUser();
+  const { userMemberships } = useOrganizationList();
 
   const [session, setSession] = useState<ClerkAppSession | null>(null);
   const [isLoading, setIsLoading] = useState(true);
@@ -144,6 +160,27 @@ export const ClerkSessionProvider = ({ children }: ClerkSessionProviderProps) =>
             roles: [Role.USER],
             signature: null,
           };
+        }
+
+        // Sync Clerk organizations to local database first
+        if (userMemberships?.data?.length) {
+          try {
+            for (const membership of userMemberships.data) {
+              const clerkOrg = membership.organization;
+              await trpc.organisation.internal.syncClerkOrg.mutate({
+                clerkOrgId: clerkOrg.id,
+                name: clerkOrg.name,
+                url: clerkOrg.slug || clerkOrg.id,
+              });
+            }
+            console.log(
+              'ClerkSession: Synced',
+              userMemberships.data.length,
+              'organizations from Clerk',
+            );
+          } catch (syncError) {
+            console.error('ClerkSession: Failed to sync Clerk organizations:', syncError);
+          }
         }
 
         // Get organisations from local database
