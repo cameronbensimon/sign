@@ -204,15 +204,16 @@ export const ClerkSessionProvider = ({ children }: ClerkSessionProviderProps) =>
           };
         }
 
-        // Sync Clerk organizations to local database first
+        // Sync Clerk organizations to local database first (using unauthenticated endpoint during session setup)
         if (userMemberships?.data?.length) {
           try {
             for (const membership of userMemberships.data) {
               const clerkOrg = membership.organization;
-              await trpc.organisation.internal.syncClerkOrg.mutate({
+              await trpc.organisation.internal.syncClerkOrgUnauthenticated.mutate({
                 clerkOrgId: clerkOrg.id,
                 name: clerkOrg.name,
                 url: clerkOrg.slug || clerkOrg.id,
+                clerkUserId: userId, // Pass the Clerk user ID for lookup
               });
             }
             console.log(
@@ -225,13 +226,14 @@ export const ClerkSessionProvider = ({ children }: ClerkSessionProviderProps) =>
           }
         }
 
-        // Get organisations from local database
+        // Get organisations from local database (using unauthenticated endpoint during session setup)
         let organisations: TGetOrganisationSessionResponse = [];
         try {
-          organisations = await trpc.organisation.internal.getOrganisationSession.query(
-            undefined,
-            SKIP_QUERY_BATCH_META.trpc,
-          );
+          organisations =
+            await trpc.organisation.internal.getOrganisationSessionUnauthenticated.query(
+              { clerkUserId: userId },
+              SKIP_QUERY_BATCH_META.trpc,
+            );
           console.log('ClerkSession: Got organisations:', organisations.length);
         } catch (orgError) {
           console.error('ClerkSession: Failed to get organisations:', orgError);
