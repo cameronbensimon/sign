@@ -3,7 +3,7 @@ import { msg } from '@lingui/core/macro';
 import { Trans } from '@lingui/react/macro';
 import { Link, Outlet, redirect } from 'react-router';
 
-import { useSession } from '@documenso/lib/client-only/providers/clerk-session';
+import { useOptionalSession } from '@documenso/lib/client-only/providers/clerk-session';
 import { OrganisationProvider } from '@documenso/lib/client-only/providers/organisation';
 import { getSiteSettings } from '@documenso/lib/server-only/site-settings/get-site-settings';
 import { SITE_SETTINGS_BANNER_ID } from '@documenso/lib/server-only/site-settings/schemas/banner';
@@ -44,7 +44,41 @@ export async function loader(args: Route.LoaderArgs) {
 export default function Layout({ loaderData, params }: Route.ComponentProps) {
   const { banner } = loaderData;
 
-  const { user, organisations } = useSession();
+  // Use optional session to handle loading states gracefully
+  const sessionContext = useOptionalSession();
+
+  // Show loading state while session is being established
+  if (sessionContext?.isLoading) {
+    return (
+      <div className="flex min-h-screen items-center justify-center">
+        <div className="text-center">
+          <div className="h-8 w-8 animate-spin rounded-full border-4 border-blue-600 border-t-transparent"></div>
+          <p className="text-muted-foreground mt-4 text-sm">Loading your session...</p>
+        </div>
+      </div>
+    );
+  }
+
+  // If no session data after loading, show error or redirect
+  if (!sessionContext?.sessionData) {
+    return (
+      <div className="flex min-h-screen items-center justify-center">
+        <div className="text-center">
+          <p className="text-red-600">
+            Session could not be established. Please try refreshing the page.
+          </p>
+          <button
+            onClick={() => window.location.reload()}
+            className="mt-4 rounded bg-blue-600 px-4 py-2 text-white hover:bg-blue-700"
+          >
+            Refresh Page
+          </button>
+        </div>
+      </div>
+    );
+  }
+
+  const { user, organisations } = sessionContext.sessionData;
 
   const teamUrl = params.teamUrl;
   const orgUrl = params.orgUrl;
