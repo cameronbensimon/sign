@@ -32,9 +32,13 @@ export const getDatabaseUrl = () => {
     return undefined;
   }
 
-  // We change the protocol from `postgres:` to `https:` so we can construct a easily
-  // mofifiable URL.
-  const url = new URL(process.env.NEXT_PRIVATE_DATABASE_URL.replace('postgres://', 'https://'));
+  // We change the protocol from `postgres:`/`postgresql:` to `https:` so we can construct
+  // an easily modifiable URL.
+  const normalizedForUrl = process.env.NEXT_PRIVATE_DATABASE_URL.replace(
+    /^postgres(ql)?:\/\//,
+    'https://',
+  );
+  const url = new URL(normalizedForUrl);
 
   // If we're using a connection pool, we need to let Prisma know that
   // we're using PgBouncer.

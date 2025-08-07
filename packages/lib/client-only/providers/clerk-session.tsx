@@ -204,8 +204,14 @@ export const ClerkSessionProvider = ({ children }: ClerkSessionProviderProps) =>
           };
         }
 
+        // Ensure Clerk organization memberships are loaded before syncing
+        if (!userMemberships?.isLoaded) {
+          console.log('ClerkSession: Organization memberships not loaded yet; delaying refresh');
+          return;
+        }
+
         // Sync Clerk organizations to local database first (using unauthenticated endpoint during session setup)
-        if (userMemberships?.data?.length) {
+        if (Array.isArray(userMemberships.data) && userMemberships.data.length > 0) {
           try {
             for (const membership of userMemberships.data) {
               const clerkOrg = membership.organization;
