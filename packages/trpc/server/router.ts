@@ -13,7 +13,6 @@ import { shareLinkRouter } from './share-link-router/router';
 import { teamRouter } from './team-router/router';
 import { templateRouter } from './template-router/router';
 import { router } from './trpc';
-import { userRouter } from './user-router/router';
 import { webhookRouter } from './webhook-router/router';
 
 export const appRouter = router({
