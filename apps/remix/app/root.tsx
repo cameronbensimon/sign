@@ -1,6 +1,7 @@
 import { useEffect } from 'react';
 
-import { ClerkProvider } from '@clerk/clerk-react';
+import { ClerkProvider } from '@clerk/react-router';
+import { rootAuthLoader } from '@clerk/react-router/ssr.server';
 import Plausible from 'plausible-tracker';
 import {
   Links,
@@ -49,42 +50,44 @@ export function meta() {
  */
 export const shouldRevalidate = () => false;
 
-export async function loader({ request }: Route.LoaderArgs) {
-  const session = await getOptionalSession(request);
+export async function loader(args: Route.LoaderArgs) {
+  return rootAuthLoader(args, async ({ request }) => {
+    const session = await getOptionalSession(request);
 
-  const { getTheme } = await themeSessionResolver(request);
+    const { getTheme } = await themeSessionResolver(request);
 
-  let lang: SupportedLanguageCodes = await langCookie.parse(request.headers.get('cookie') ?? '');
+    let lang: SupportedLanguageCodes = await langCookie.parse(request.headers.get('cookie') ?? '');
 
-  if (!APP_I18N_OPTIONS.supportedLangs.includes(lang)) {
-    lang = extractLocaleData({ headers: request.headers }).lang;
-  }
+    if (!APP_I18N_OPTIONS.supportedLangs.includes(lang)) {
+      lang = extractLocaleData({ headers: request.headers }).lang;
+    }
 
-  let organisations = null;
+    let organisations = null;
 
-  if (session.isAuthenticated) {
-    organisations = await getOrganisationSession({ userId: session.user.id });
-  }
+    if (session.isAuthenticated) {
+      organisations = await getOrganisationSession({ userId: session.user.id });
+    }
 
-  return data(
-    {
-      lang,
-      theme: getTheme(),
-      session: session.isAuthenticated
-        ? {
-            user: session.user,
-            session: session.session,
-            organisations: organisations || [],
-          }
-        : null,
-      publicEnv: createPublicEnv(),
-    },
-    {
-      headers: {
-        'Set-Cookie': await langCookie.serialize(lang),
+    return data(
+      {
+        lang,
+        theme: getTheme(),
+        session: session.isAuthenticated
+          ? {
+              user: session.user,
+              session: session.session,
+              organisations: organisations || [],
+            }
+          : null,
+        publicEnv: createPublicEnv(),
       },
-    },
-  );
+      {
+        headers: {
+          'Set-Cookie': await langCookie.serialize(lang),
+        },
+      },
+    );
+  });
 }
 
 export function Layout({ children }: { children: React.ReactNode }) {
@@ -129,7 +132,10 @@ export function LayoutContent({ children }: { children: React.ReactNode }) {
         <script>0</script>
       </head>
       <body>
-        <ClerkProvider publishableKey={publicEnv.CLERK_PUBLISHABLE_KEY || ''}>
+        <ClerkProvider
+          publishableKey={publicEnv.VITE_CLERK_PUBLISHABLE_KEY || ''}
+          loaderData={data}
+        >
           <TooltipProvider>
             <TrpcProvider>
               {children}

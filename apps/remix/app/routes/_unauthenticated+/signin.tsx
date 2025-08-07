@@ -1,5 +1,5 @@
-import { SignIn as ClerkSignIn } from '@clerk/clerk-react';
-import { useAuth } from '@clerk/clerk-react';
+import { SignIn as ClerkSignIn } from '@clerk/react-router';
+import { useAuth } from '@clerk/react-router';
 import { redirect } from 'react-router';
 
 import { appMetaTags } from '~/utils/meta';

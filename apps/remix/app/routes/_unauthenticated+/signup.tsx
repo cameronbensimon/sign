@@ -1,5 +1,5 @@
-import { SignUp as ClerkSignUp } from '@clerk/clerk-react';
-import { useAuth } from '@clerk/clerk-react';
+import { SignUp as ClerkSignUp } from '@clerk/react-router';
+import { useAuth } from '@clerk/react-router';
 import { redirect } from 'react-router';
 
 import { env } from '@documenso/lib/utils/env';
