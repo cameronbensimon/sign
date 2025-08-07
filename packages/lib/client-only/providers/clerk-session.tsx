@@ -10,6 +10,7 @@ import { trpc } from '@documenso/trpc/client';
 import type { TGetOrganisationSessionResponse } from '@documenso/trpc/server/organisation-router/get-organisation-session.types';
 
 import { SKIP_QUERY_BATCH_META } from '../../constants/trpc';
+import { getAuthenticatedUser } from '../utils/session-guards';
 
 export type ClerkAppSession = {
   session: Session;
@@ -105,6 +106,15 @@ export const useAuthenticatedSession = () => {
     ...context.sessionData,
     refreshSession: context.refreshSession,
     isLoading: context.isLoading,
+  };
+};
+
+// Hook for authenticated routes that guarantees non-null user
+export const useAuthenticatedUser = () => {
+  const { user, ...rest } = useSession();
+  return {
+    user: getAuthenticatedUser(user),
+    ...rest,
   };
 };
 
