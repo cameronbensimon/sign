@@ -77,7 +77,11 @@ export const BillingPlans = ({ plans }: BillingPlansProps) => {
     <div>
       <Tabs
         value={interval}
-        onValueChange={(value) => setInterval(value as 'monthlyPrice' | 'yearlyPrice')}
+        onValueChange={(value) => {
+          if (value === 'monthlyPrice' || value === 'yearlyPrice') {
+            setInterval(value);
+          }
+        }}
       >
         <TabsList>
           <TabsTrigger className="min-w-[150px]" value="monthlyPrice">
@@ -188,8 +192,10 @@ const BillingDialog = ({
   const { mutateAsync: createSubscription, isPending: isCreatingSubscription } =
     trpc.enterprise.billing.subscription.create.useMutation();
 
-  const { mutateAsync: createOrganisation, isPending: isCreatingOrganisation } =
-    trpc.organisation.create.useMutation();
+  // DISABLED: Organizations now come from Clerk only
+  // const { mutateAsync: createOrganisation, isPending: isCreatingOrganisation } =
+  //   trpc.organisation.create.useMutation();
+  const isCreatingOrganisation = false;
 
   const isPending = isCreatingSubscription || isCreatingOrganisation;
 
@@ -205,17 +211,10 @@ const BillingDialog = ({
 
         redirectUrl = createSubscriptionResponse.redirectUrl;
       } else {
-        const createOrganisationResponse = await createOrganisation({
-          name: form.getValues('name'),
-          priceId,
-        });
-
-        if (!createOrganisationResponse.paymentRequired) {
-          setIsOpen(false);
-          return;
-        }
-
-        redirectUrl = createOrganisationResponse.checkoutUrl;
+        // Organizations are now managed through Clerk
+        throw new Error(
+          'Organization creation is now handled through Clerk. Please create organizations in your Clerk dashboard.',
+        );
       }
 
       window.location.href = redirectUrl;
@@ -252,7 +251,11 @@ const BillingDialog = ({
             <RadioGroup
               className="space-y-2"
               value={subscriptionOption}
-              onValueChange={(value) => setSubscriptionOption(value as 'update' | 'create')}
+              onValueChange={(value) => {
+                if (value === 'update' || value === 'create') {
+                  setSubscriptionOption(value);
+                }
+              }}
             >
               <div className="flex items-start space-x-3 space-y-0">
                 <RadioGroupItem value="update" id="update" />

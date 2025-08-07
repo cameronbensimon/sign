@@ -16,7 +16,6 @@ import type { InternalClaimPlans } from '@documenso/ee/server-only/stripe/get-in
 import { useUpdateSearchParams } from '@documenso/lib/client-only/hooks/use-update-search-params';
 import { useSession } from '@documenso/lib/client-only/providers/clerk-session';
 import { IS_BILLING_ENABLED } from '@documenso/lib/constants/app';
-import { AppError } from '@documenso/lib/errors/app-error';
 import { INTERNAL_CLAIM_ID } from '@documenso/lib/types/subscription';
 import { parseMessageDescriptorMacro } from '@documenso/lib/utils/i18n';
 import { isPersonalLayout } from '@documenso/lib/utils/organisations';
@@ -34,15 +33,7 @@ import {
   DialogTitle,
   DialogTrigger,
 } from '@documenso/ui/primitives/dialog';
-import {
-  Form,
-  FormControl,
-  FormField,
-  FormItem,
-  FormLabel,
-  FormMessage,
-} from '@documenso/ui/primitives/form/form';
-import { Input } from '@documenso/ui/primitives/input';
+import { Form } from '@documenso/ui/primitives/form/form';
 import { SpinnerBox } from '@documenso/ui/primitives/spinner';
 import { Tabs, TabsList, TabsTrigger } from '@documenso/ui/primitives/tabs';
 import { useToast } from '@documenso/ui/primitives/use-toast';
@@ -62,7 +53,7 @@ export type TCreateOrganisationFormSchema = z.infer<typeof ZCreateOrganisationFo
 export const OrganisationCreateDialog = ({ trigger, ...props }: OrganisationCreateDialogProps) => {
   const { t } = useLingui();
   const { toast } = useToast();
-  const { refreshSession, organisations } = useSession();
+  const { organisations } = useSession();
 
   const [searchParams] = useSearchParams();
   const updateSearchParams = useUpdateSearchParams();
@@ -85,45 +76,21 @@ export const OrganisationCreateDialog = ({ trigger, ...props }: OrganisationCrea
     },
   });
 
-  const { mutateAsync: createOrganisation } = trpc.organisation.create.useMutation();
+  // DISABLED: Organizations now come from Clerk only
+  // const { mutateAsync: createOrganisation } = trpc.organisation.create.useMutation();
 
   const { data: plansData } = trpc.enterprise.billing.plans.get.useQuery(undefined, {
     enabled: IS_BILLING_ENABLED(),
   });
 
-  const onFormSubmit = async ({ name }: TCreateOrganisationFormSchema) => {
-    try {
-      const response = await createOrganisation({
-        name,
-        priceId: selectedPriceId,
-      });
-
-      if (response.paymentRequired) {
-        window.open(response.checkoutUrl, '_blank');
-        setOpen(false);
-
-        return;
-      }
-
-      await refreshSession();
-      setOpen(false);
-
-      toast({
-        title: t`Success`,
-        description: t`Your organisation has been created.`,
-        duration: 5000,
-      });
-    } catch (err) {
-      const error = AppError.parseError(err);
-
-      console.error(error);
-
-      toast({
-        title: t`An unknown error occurred`,
-        description: t`We encountered an unknown error while attempting to create a organisation. Please try again later.`,
-        variant: 'destructive',
-      });
-    }
+  const onFormSubmit = ({ name: _name }: TCreateOrganisationFormSchema) => {
+    // Organizations are now managed through Clerk
+    toast({
+      title: t`Organizations managed through Clerk`,
+      description: t`Please create and manage organizations through your Clerk dashboard. They will automatically sync to this project.`,
+      duration: 8000,
+    });
+    setOpen(false);
   };
 
   useEffect(() => {
@@ -205,11 +172,14 @@ export const OrganisationCreateDialog = ({ trigger, ...props }: OrganisationCrea
             <>
               <DialogHeader>
                 <DialogTitle>
-                  <Trans>Create organisation</Trans>
+                  <Trans>Organizations managed by Clerk</Trans>
                 </DialogTitle>
 
                 <DialogDescription>
-                  <Trans>Create an organisation to collaborate with teams</Trans>
+                  <Trans>
+                    Organizations are now managed through your Clerk account. Create organizations
+                    in Clerk and they'll automatically sync here with all features.
+                  </Trans>
                 </DialogDescription>
               </DialogHeader>
 
@@ -219,43 +189,39 @@ export const OrganisationCreateDialog = ({ trigger, ...props }: OrganisationCrea
                     className="flex h-full flex-col space-y-4"
                     disabled={form.formState.isSubmitting}
                   >
-                    <FormField
-                      control={form.control}
-                      name="name"
-                      render={({ field }) => (
-                        <FormItem>
-                          <FormLabel required>
-                            <Trans>Organisation Name</Trans>
-                          </FormLabel>
-                          <FormControl>
-                            <Input {...field} />
-                          </FormControl>
-                          <FormMessage />
-                        </FormItem>
-                      )}
-                    />
+                    <div className="space-y-4">
+                      <p className="text-muted-foreground text-sm">
+                        <Trans>To create a new organization:</Trans>
+                      </p>
+                      <ol className="list-decimal space-y-2 pl-6 text-sm">
+                        <li>
+                          <Trans>Go to your Clerk Dashboard</Trans>
+                        </li>
+                        <li>
+                          <Trans>Create a new organization</Trans>
+                        </li>
+                        <li>
+                          <Trans>Return here - it will sync automatically</Trans>
+                        </li>
+                        <li>
+                          <Trans>Use all organization features (teams, settings, documents)</Trans>
+                        </li>
+                      </ol>
+                    </div>
 
                     <DialogFooter>
-                      {IS_BILLING_ENABLED() ? (
-                        <Button
-                          type="button"
-                          variant="secondary"
-                          onClick={() => setStep('billing')}
-                        >
-                          <Trans>Back</Trans>
-                        </Button>
-                      ) : (
-                        <Button type="button" variant="secondary" onClick={() => setOpen(false)}>
-                          <Trans>Cancel</Trans>
-                        </Button>
-                      )}
+                      <Button type="button" variant="secondary" onClick={() => setOpen(false)}>
+                        <Trans>Close</Trans>
+                      </Button>
 
                       <Button
-                        type="submit"
-                        data-testid="dialog-create-organisation-button"
-                        loading={form.formState.isSubmitting}
+                        type="button"
+                        onClick={() => {
+                          window.open('https://clerk.com/organizations', '_blank');
+                        }}
                       >
-                        {selectedPriceId ? <Trans>Checkout</Trans> : <Trans>Create</Trans>}
+                        <ExternalLinkIcon className="mr-2 h-4 w-4" />
+                        <Trans>Open Clerk Dashboard</Trans>
                       </Button>
                     </DialogFooter>
                   </fieldset>

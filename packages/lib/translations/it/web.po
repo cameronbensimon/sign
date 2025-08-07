@@ -1315,7 +1315,6 @@ msgstr "Si è verificato un errore inaspettato."
 #: apps/remix/app/components/dialogs/organisation-email-domain-create-dialog.tsx
 #: apps/remix/app/components/dialogs/organisation-email-delete-dialog.tsx
 #: apps/remix/app/components/dialogs/organisation-delete-dialog.tsx
-#: apps/remix/app/components/dialogs/organisation-create-dialog.tsx
 #: apps/remix/app/components/dialogs/admin-organisation-create-dialog.tsx
 #: apps/remix/app/components/dialogs/admin-document-delete-dialog.tsx
 #: apps/remix/app/components/dialogs/account-delete-dialog.tsx
@@ -1521,7 +1520,6 @@ msgstr "In attesa della conferma email"
 #: apps/remix/app/components/embed/authoring/configure-fields-view.tsx
 #: apps/remix/app/components/dialogs/team-member-create-dialog.tsx
 #: apps/remix/app/components/dialogs/team-group-create-dialog.tsx
-#: apps/remix/app/components/dialogs/organisation-create-dialog.tsx
 msgid "Back"
 msgstr "Indietro"
 
@@ -1720,7 +1718,6 @@ msgstr "Può preparare"
 #: apps/remix/app/components/dialogs/organisation-email-create-dialog.tsx
 #: apps/remix/app/components/dialogs/organisation-delete-dialog.tsx
 #: apps/remix/app/components/dialogs/organisation-create-dialog.tsx
-#: apps/remix/app/components/dialogs/organisation-create-dialog.tsx
 #: apps/remix/app/components/dialogs/folder-update-dialog.tsx
 #: apps/remix/app/components/dialogs/folder-move-dialog.tsx
 #: apps/remix/app/components/dialogs/folder-delete-dialog.tsx
@@ -1786,7 +1783,6 @@ msgid "Checkbox values"
 msgstr "Valori della casella di controllo"
 
 #: apps/remix/app/components/general/billing-plans.tsx
-#: apps/remix/app/components/dialogs/organisation-create-dialog.tsx
 #: apps/remix/app/components/dialogs/organisation-create-dialog.tsx
 msgid "Checkout"
 msgstr "Pagamento"
@@ -1876,6 +1872,7 @@ msgstr "Clicca per inserire il campo"
 #: apps/remix/app/components/dialogs/public-profile-template-manage-dialog.tsx
 #: apps/remix/app/components/dialogs/public-profile-template-manage-dialog.tsx
 #: apps/remix/app/components/dialogs/organisation-email-domain-records-dialog.tsx
+#: apps/remix/app/components/dialogs/organisation-create-dialog.tsx
 #: packages/ui/primitives/document-flow/missing-signature-field-dialog.tsx
 msgid "Close"
 msgstr "Chiudi"
@@ -2171,7 +2168,6 @@ msgstr "Copia il token"
 #: apps/remix/app/routes/_profile+/_layout.tsx
 #: apps/remix/app/components/dialogs/webhook-create-dialog.tsx
 #: apps/remix/app/components/dialogs/organisation-group-create-dialog.tsx
-#: apps/remix/app/components/dialogs/organisation-create-dialog.tsx
 #: apps/remix/app/components/dialogs/folder-create-dialog.tsx
 #: apps/remix/app/components/dialogs/admin-organisation-create-dialog.tsx
 msgid "Create"
@@ -2194,6 +2190,10 @@ msgstr ""
 msgid "Create a new organisation with {planName} plan. Keep your current organisation on it's current plan"
 msgstr "Crea una nuova organizzazione con il piano {planName}. Mantieni la tua organizzazione attuale sul suo piano attuale"
 
+#: apps/remix/app/components/dialogs/organisation-create-dialog.tsx
+msgid "Create a new organization"
+msgstr ""
+
 #: apps/remix/app/components/dialogs/team-create-dialog.tsx
 msgid "Create a team to collaborate with your team members."
 msgstr "Crea un team per collaborare con i membri del tuo team."
@@ -2207,13 +2207,9 @@ msgstr "Crea un account"
 msgid "Create an organisation for this user"
 msgstr "Crea un'organizzazione per questo utente"
 
-#: apps/remix/app/components/dialogs/organisation-create-dialog.tsx
-msgid "Create an organisation to collaborate with teams"
-msgstr "Crea un'organizzazione per collaborare con i team"
-
 #: apps/remix/app/routes/_authenticated+/dashboard.tsx
-msgid "Create an organisation to get started."
-msgstr "Crea un'organizzazione per iniziare."
+msgid "Create an organisation in Clerk to get started."
+msgstr ""
 
 #: apps/remix/app/components/dialogs/template-use-dialog.tsx
 msgid "Create and send"
@@ -2280,8 +2276,6 @@ msgstr "Crea ora"
 msgid "Create one automatically"
 msgstr "Crea uno automaticamente"
 
-#: apps/remix/app/routes/_authenticated+/dashboard.tsx
-#: apps/remix/app/components/dialogs/organisation-create-dialog.tsx
 #: apps/remix/app/components/dialogs/organisation-create-dialog.tsx
 #: apps/remix/app/components/dialogs/admin-organisation-create-dialog.tsx
 #: apps/remix/app/components/dialogs/admin-organisation-create-dialog.tsx
@@ -3842,6 +3836,10 @@ msgstr "Vai al team"
 msgid "Go to your <0>public profile settings</0> to add documents."
 msgstr "Vai alle tue <0>impostazioni del profilo pubblico</0> per aggiungere documenti."
 
+#: apps/remix/app/components/dialogs/organisation-create-dialog.tsx
+msgid "Go to your Clerk Dashboard"
+msgstr ""
+
 #: packages/ui/primitives/signature-pad/signature-pad-color-picker.tsx
 msgid "Green"
 msgstr "Verde"
@@ -4349,10 +4347,6 @@ msgstr "Gestisci"
 #: apps/remix/app/routes/_authenticated+/admin+/users.$id.tsx
 msgid "Manage {0}'s profile"
 msgstr "Gestisci il profilo di {0}"
-
-#: apps/remix/app/routes/_authenticated+/settings+/organisations.tsx
-msgid "Manage all organisations you are currently associated with."
-msgstr "Gestisci tutte le organizzazioni con cui sei attualmente associato."
 
 #: apps/remix/app/routes/_authenticated+/admin+/claims.tsx
 msgid "Manage all subscription claims"
@@ -4898,6 +4892,11 @@ msgstr "Solo i manager e superiori possono accedere e visualizzare il documento"
 msgid "Oops! Something went wrong."
 msgstr "Ops! Qualcosa è andato storto."
 
+#: apps/remix/app/routes/_authenticated+/dashboard.tsx
+#: apps/remix/app/components/dialogs/organisation-create-dialog.tsx
+msgid "Open Clerk Dashboard"
+msgstr ""
+
 #: apps/remix/app/components/general/stack-avatars-with-tooltip.tsx
 msgid "Opened"
 msgstr "Aperto"
@@ -4963,7 +4962,6 @@ msgstr "Membri dell'organizzazione"
 #: apps/remix/app/routes/_authenticated+/admin+/organisations.$id.tsx
 #: apps/remix/app/components/general/billing-plans.tsx
 #: apps/remix/app/components/forms/organisation-update-form.tsx
-#: apps/remix/app/components/dialogs/organisation-create-dialog.tsx
 #: apps/remix/app/components/dialogs/admin-organisation-create-dialog.tsx
 msgid "Organisation Name"
 msgstr "Nome dell'organizzazione"
@@ -5023,6 +5021,18 @@ msgstr "Organizza i tuoi membri in gruppi che possono essere assegnati ai team."
 #: apps/remix/app/components/general/folder/folder-card.tsx
 msgid "Organise your templates"
 msgstr "Organizza i tuoi modelli"
+
+#: apps/remix/app/components/dialogs/organisation-create-dialog.tsx
+msgid "Organizations are now managed through your Clerk account. Create organizations in Clerk and they'll automatically sync here with all features."
+msgstr ""
+
+#: apps/remix/app/components/dialogs/organisation-create-dialog.tsx
+msgid "Organizations managed by Clerk"
+msgstr ""
+
+#: apps/remix/app/components/dialogs/organisation-create-dialog.tsx
+msgid "Organizations managed through Clerk"
+msgstr ""
 
 #: apps/remix/app/routes/_authenticated+/o.$orgUrl._index.tsx
 msgid "Organize your documents and templates"
@@ -5271,6 +5281,10 @@ msgstr "Si prega di contattare il supporto se si desidera annullare questa azion
 #: apps/remix/app/components/embed/multisign/multi-sign-document-list.tsx
 msgid "Please contact the site owner for further assistance."
 msgstr "Si prega di contattare il proprietario del sito per ulteriori assistenza."
+
+#: apps/remix/app/components/dialogs/organisation-create-dialog.tsx
+msgid "Please create and manage organizations through your Clerk dashboard. They will automatically sync to this project."
+msgstr ""
 
 #: apps/remix/app/components/forms/token.tsx
 msgid "Please enter a meaningful name for your token. This will help you identify it later."
@@ -5762,6 +5776,10 @@ msgstr "Riprova"
 #: apps/remix/app/routes/_unauthenticated+/organisation.decline.$token.tsx
 msgid "Return"
 msgstr "Ritorna"
+
+#: apps/remix/app/components/dialogs/organisation-create-dialog.tsx
+msgid "Return here - it will sync automatically"
+msgstr ""
 
 #: apps/remix/app/routes/_unauthenticated+/organisation.decline.$token.tsx
 msgid "Return to Home"
@@ -6599,7 +6617,6 @@ msgstr ""
 #: apps/remix/app/components/dialogs/organisation-email-domain-delete-dialog.tsx
 #: apps/remix/app/components/dialogs/organisation-email-delete-dialog.tsx
 #: apps/remix/app/components/dialogs/organisation-delete-dialog.tsx
-#: apps/remix/app/components/dialogs/organisation-create-dialog.tsx
 #: apps/remix/app/components/dialogs/admin-organisation-create-dialog.tsx
 msgid "Success"
 msgstr "Successo"
@@ -7502,6 +7519,10 @@ msgstr "Per confermare, inserisci l'indirizzo email dell'account <0/>({0})."
 msgid "To confirm, please enter the reason"
 msgstr "Per confermare, per favore inserisci il motivo"
 
+#: apps/remix/app/components/dialogs/organisation-create-dialog.tsx
+msgid "To create a new organization:"
+msgstr ""
+
 #: apps/remix/app/components/forms/2fa/enable-authenticator-app-dialog.tsx
 msgid "To enable two-factor authentication, scan the following QR code using your authenticator app."
 msgstr "Per abilitare l'autenticazione a due fattori, scansiona il seguente codice QR utilizzando la tua app di autenticazione."
@@ -7968,6 +7989,10 @@ msgstr "Caricamento documento in corso..."
 msgid "Use"
 msgstr "Utilizza"
 
+#: apps/remix/app/components/dialogs/organisation-create-dialog.tsx
+msgid "Use all organization features (teams, settings, documents)"
+msgstr ""
+
 #: apps/remix/app/components/forms/signin.tsx
 #: apps/remix/app/components/forms/2fa/disable-authenticator-app-dialog.tsx
 msgid "Use Authenticator"
@@ -8117,6 +8142,10 @@ msgstr "Visualizza tutte le attività di sicurezza relative al tuo account."
 #: apps/remix/app/routes/_authenticated+/settings+/security._index.tsx
 msgid "View and manage all active sessions for your account."
 msgstr "Visualizza e gestisci tutte le sessioni attive per il tuo account."
+
+#: apps/remix/app/routes/_authenticated+/settings+/organisations.tsx
+msgid "View and manage organizations from your Clerk account. Create new organizations in Clerk and they'll sync automatically."
+msgstr ""
 
 #: apps/remix/app/components/forms/2fa/view-recovery-codes-dialog.tsx
 msgid "View Codes"
@@ -8300,7 +8329,6 @@ msgstr ""
 msgid "We encountered an unknown error while attempting to create a group. Please try again later."
 msgstr "Abbiamo riscontrato un errore sconosciuto durante il tentativo di creare un gruppo. Si prega di riprovare più tardi."
 
-#: apps/remix/app/components/dialogs/organisation-create-dialog.tsx
 #: apps/remix/app/components/dialogs/admin-organisation-create-dialog.tsx
 msgid "We encountered an unknown error while attempting to create a organisation. Please try again later."
 msgstr "Abbiamo riscontrato un errore sconosciuto durante il tentativo di creare un'organizzazione. Si prega di riprovare più tardi."
@@ -9155,10 +9183,6 @@ msgstr "I tuoi token esistenti"
 #: apps/remix/app/components/forms/password.tsx
 msgid "Your new password cannot be the same as your old password."
 msgstr "La tua nuova password non può essere la stessa della vecchia password."
-
-#: apps/remix/app/components/dialogs/organisation-create-dialog.tsx
-msgid "Your organisation has been created."
-msgstr "La tua organizzazione è stata creata."
 
 #: apps/remix/app/components/dialogs/organisation-delete-dialog.tsx
 msgid "Your organisation has been successfully deleted."

@@ -13,7 +13,9 @@ export default function TeamsSettingsPage() {
     <div>
       <SettingsHeader
         title={_(msg`Organisations`)}
-        subtitle={_(msg`Manage all organisations you are currently associated with.`)}
+        subtitle={_(
+          msg`View and manage organizations from your Clerk account. Create new organizations in Clerk and they'll sync automatically.`,
+        )}
       >
         <OrganisationCreateDialog />
       </SettingsHeader>

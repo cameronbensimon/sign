@@ -70,14 +70,16 @@ export default function DashboardPage() {
                 <Trans>No organisations found</Trans>
               </p>
               <p className="text-muted-foreground text-sm">
-                <Trans>Create an organisation to get started.</Trans>
+                <Trans>Create an organisation in Clerk to get started.</Trans>
               </p>
             </div>
 
-            <Button asChild className="mt-4" variant="outline">
-              <Link to="/settings/organisations?action=add-organisation">
-                <Trans>Create organisation</Trans>
-              </Link>
+            <Button
+              onClick={() => window.open('https://clerk.com/organizations', '_blank')}
+              className="mt-4"
+              variant="outline"
+            >
+              <Trans>Open Clerk Dashboard</Trans>
             </Button>
           </div>
         )}

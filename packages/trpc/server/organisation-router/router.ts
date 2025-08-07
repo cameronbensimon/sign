@@ -1,6 +1,5 @@
 import { router } from '../trpc';
 import { acceptOrganisationMemberInviteRoute } from './accept-organisation-member-invite';
-import { createOrganisationRoute } from './create-organisation';
 import { createOrganisationGroupRoute } from './create-organisation-group';
 import { createOrganisationMemberInvitesRoute } from './create-organisation-member-invites';
 import { declineOrganisationMemberInviteRoute } from './decline-organisation-member-invite';
@@ -30,7 +29,7 @@ import { updateOrganisationSettingsRoute } from './update-organisation-settings'
 export const organisationRouter = router({
   get: getOrganisationRoute,
   getMany: getOrganisationsRoute,
-  create: createOrganisationRoute,
+  // create: createOrganisationRoute, // DISABLED: Organizations now come from Clerk only
   update: updateOrganisationRoute,
   delete: deleteOrganisationRoute,
   leave: leaveOrganisationRoute,
