@@ -1,6 +1,6 @@
 import { useEffect } from 'react';
 
-import { ClerkProvider } from '@clerk/react-router';
+import { ClerkProvider, useAuth } from '@clerk/react-router';
 import { rootAuthLoader } from '@clerk/react-router/ssr.server';
 import Plausible from 'plausible-tracker';
 import {
@@ -122,11 +122,11 @@ export function LayoutContent({ children }: { children: React.ReactNode }) {
         >
           <ClerkSessionProvider>
             <TooltipProvider>
-              <TrpcProvider>
+              <TrpcProviderWithAuth>
                 {children}
 
                 <Toaster />
-              </TrpcProvider>
+              </TrpcProviderWithAuth>
             </TooltipProvider>
           </ClerkSessionProvider>
         </ClerkProvider>
@@ -142,6 +142,19 @@ export function LayoutContent({ children }: { children: React.ReactNode }) {
       </body>
     </html>
   );
+}
+
+// TRPC Provider with Clerk Authentication Headers
+function TrpcProviderWithAuth({ children }: { children: React.ReactNode }) {
+  const { userId, sessionId } = useAuth();
+
+  // Create headers with Clerk auth information
+  const headers = {
+    ...(userId && { 'x-clerk-user-id': userId }),
+    ...(sessionId && { 'x-clerk-session-id': sessionId }),
+  };
+
+  return <TrpcProvider headers={headers}>{children}</TrpcProvider>;
 }
 
 function App() {
