@@ -19,7 +19,7 @@ export default function SignIn() {
   }
 
   return (
-    <div className="flex h-screen items-center justify-center bg-white">
+    <div>
       <ClerkSignIn fallbackRedirectUrl="/" signUpUrl="/signup" />
     </div>
   );

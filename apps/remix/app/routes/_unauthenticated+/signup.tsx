@@ -21,7 +21,7 @@ export function loader() {
 
 export default function SignUp() {
   return (
-    <div className="flex h-screen items-center justify-center bg-white">
+    <div>
       <ClerkSignUp fallbackRedirectUrl="/" signInUrl="/signin" />
     </div>
   );
