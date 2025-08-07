@@ -3,6 +3,7 @@ import React from 'react';
 
 import { useAuth, useOrganizationList, useUser } from '@clerk/react-router';
 import type { Session } from '@prisma/client';
+import { Role } from '@prisma/client';
 import { useLocation } from 'react-router';
 
 import type { SessionUser } from '@documenso/auth/server/lib/session/session';
@@ -107,6 +108,10 @@ export const ClerkSessionProvider = ({ children }: ClerkSessionProviderProps) =>
           email: email,
           emailVerified:
             clerkUser.primaryEmailAddress?.verification?.status === 'verified' ? new Date() : null,
+          avatarImageId: null,
+          twoFactorEnabled: false,
+          roles: [Role.USER],
+          signature: null,
         };
       }
 
@@ -136,7 +141,10 @@ export const ClerkSessionProvider = ({ children }: ClerkSessionProviderProps) =>
           name: localUser.name,
           email: localUser.email,
           emailVerified: localUser.emailVerified,
-          // Map other fields as needed
+          avatarImageId: localUser.avatarImageId || null,
+          twoFactorEnabled: localUser.twoFactorEnabled || false,
+          roles: localUser.roles || [Role.USER],
+          signature: localUser.signature || null,
         } as SessionUser,
         organisations,
       };
