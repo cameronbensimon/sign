@@ -173,9 +173,9 @@ type DataTableTitleProps = {
 const DataTableTitle = ({ row, teamUrl }: DataTableTitleProps) => {
   const { user } = useSession();
 
-  const recipient = row.recipients.find((recipient) => recipient.email === user.email);
+  const recipient = row.recipients.find((recipient) => recipient.email === user?.email);
 
-  const isOwner = row.user.id === user.id;
+  const isOwner = row.user.id === user?.id;
   const isRecipient = !!recipient;
   const isCurrentTeamDocument = teamUrl && row.team?.url === teamUrl;
 

@@ -189,7 +189,7 @@ export const InboxTableActionButton = ({ row }: InboxTableActionButtonProps) => 
   const { toast } = useToast();
   const { _ } = useLingui();
 
-  const recipient = row.recipients.find((recipient) => recipient.email === user.email);
+  const recipient = row.recipients.find((recipient) => recipient.email === user?.email);
 
   const isPending = row.status === DocumentStatusEnum.PENDING;
   const isComplete = isDocumentCompleted(row.status);

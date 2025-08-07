@@ -72,7 +72,7 @@ export const UserOrganisationsTable = () => {
         header: _(msg`Role`),
         accessorKey: 'role',
         cell: ({ row }) =>
-          row.original.ownerUserId === user.id
+          row.original.ownerUserId === user?.id
             ? _(msg`Owner`)
             : _(ORGANISATION_MEMBER_ROLE_MAP[row.original.currentOrganisationRole]),
       },
@@ -104,7 +104,7 @@ export const UserOrganisationsTable = () => {
               trigger={
                 <Button
                   variant="destructive"
-                  disabled={row.original.ownerUserId === user.id}
+                  disabled={row.original.ownerUserId === user?.id}
                   onSelect={(e) => e.preventDefault()}
                 >
                   <Trans>Leave</Trans>

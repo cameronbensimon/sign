@@ -60,9 +60,9 @@ export const DocumentsTableActionDropdown = ({
   const [isDeleteDialogOpen, setDeleteDialogOpen] = useState(false);
   const [isDuplicateDialogOpen, setDuplicateDialogOpen] = useState(false);
 
-  const recipient = row.recipients.find((recipient) => recipient.email === user.email);
+  const recipient = row.recipients.find((recipient) => recipient.email === user?.email);
 
-  const isOwner = row.user.id === user.id;
+  const isOwner = row.user.id === user?.id;
   // const isRecipient = !!recipient;
   const isDraft = row.status === DocumentStatus.DRAFT;
   const isPending = row.status === DocumentStatus.PENDING;

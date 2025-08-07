@@ -43,7 +43,7 @@ export const TemplatesTableActionDropdown = ({
   const [isDuplicateDialogOpen, setDuplicateDialogOpen] = useState(false);
   const [isMoveToFolderDialogOpen, setMoveToFolderDialogOpen] = useState(false);
 
-  const isOwner = row.userId === user.id;
+  const isOwner = row.userId === user?.id;
   const isTeamTemplate = row.teamId === teamId;
 
   const formatPath = `${templateRootPath}/${row.id}/edit`;
