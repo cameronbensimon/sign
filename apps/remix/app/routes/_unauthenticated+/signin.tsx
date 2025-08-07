@@ -1,6 +1,4 @@
 import { SignIn as ClerkSignIn } from '@clerk/react-router';
-import { useAuth } from '@clerk/react-router';
-import { redirect } from 'react-router';
 
 import { appMetaTags } from '~/utils/meta';
 
@@ -9,20 +7,11 @@ export function meta() {
 }
 
 export function loader() {
-  // For now, we'll handle authentication redirects on the client side with Clerk
-  // The loader can be simplified since Clerk handles auth state
+  // Clerk handles authentication redirects automatically
   return {};
 }
 
 export default function SignIn() {
-  const { isSignedIn } = useAuth();
-
-  // Redirect if already signed in
-  if (isSignedIn) {
-    redirect('/');
-    return null;
-  }
-
   return (
     <div className="flex min-h-screen items-center justify-center">
       <div className="w-full max-w-md">

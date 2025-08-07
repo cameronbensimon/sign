@@ -1,5 +1,4 @@
 import { SignUp as ClerkSignUp } from '@clerk/react-router';
-import { useAuth } from '@clerk/react-router';
 import { redirect } from 'react-router';
 
 import { env } from '@documenso/lib/utils/env';
@@ -17,18 +16,11 @@ export function loader() {
     throw redirect('/signin');
   }
 
+  // Clerk handles authentication redirects automatically
   return {};
 }
 
 export default function SignUp() {
-  const { isSignedIn } = useAuth();
-
-  // Redirect if already signed in
-  if (isSignedIn) {
-    redirect('/');
-    return null;
-  }
-
   return (
     <div className="flex min-h-screen items-center justify-center">
       <div className="w-full max-w-md">
