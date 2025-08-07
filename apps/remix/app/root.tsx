@@ -1,7 +1,6 @@
 import { useEffect } from 'react';
 
-import { ClerkApp } from '@clerk/remix';
-import { rootAuthLoader } from '@clerk/remix/ssr.server';
+import { ClerkProvider } from '@clerk/clerk-react';
 import Plausible from 'plausible-tracker';
 import {
   Links,
@@ -50,12 +49,7 @@ export function meta() {
  */
 export const shouldRevalidate = () => false;
 
-export async function loader(args: Route.LoaderArgs) {
-  const { request } = args;
-
-  // Initialize Clerk auth state
-  await rootAuthLoader(args);
-
+export async function loader({ request }: Route.LoaderArgs) {
   const session = await getOptionalSession(request);
 
   const { getTheme } = await themeSessionResolver(request);
@@ -135,13 +129,15 @@ export function LayoutContent({ children }: { children: React.ReactNode }) {
         <script>0</script>
       </head>
       <body>
-        <TooltipProvider>
-          <TrpcProvider>
-            {children}
+        <ClerkProvider publishableKey={publicEnv.CLERK_PUBLISHABLE_KEY || ''}>
+          <TooltipProvider>
+            <TrpcProvider>
+              {children}
 
-            <Toaster />
-          </TrpcProvider>
-        </TooltipProvider>
+              <Toaster />
+            </TrpcProvider>
+          </TooltipProvider>
+        </ClerkProvider>
 
         <ScrollRestoration />
         <Scripts />
@@ -160,7 +156,7 @@ function App() {
   return <Outlet />;
 }
 
-export default ClerkApp(App);
+export default App;
 
 export function ErrorBoundary({ error }: Route.ErrorBoundaryProps) {
   const errorCode = isRouteErrorResponse(error) ? error.status : 500;

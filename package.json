@@ -67,7 +67,7 @@
     "packages/*"
   ],
   "dependencies": {
-    "@clerk/remix": "^4.10.10",
+    "@clerk/clerk-react": "^5.39.0",
     "@documenso/pdf-sign": "^0.1.0",
     "@documenso/prisma": "^0.0.0",
     "@lingui/conf": "^5.2.0",
