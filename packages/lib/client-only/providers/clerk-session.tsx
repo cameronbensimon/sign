@@ -304,6 +304,14 @@ export const ClerkSessionProvider = ({ children }: ClerkSessionProviderProps) =>
     };
   }, [refreshSession]); // Now refreshSession won't change constantly due to refs
 
+  // When Clerk org memberships finish loading, force a sync/refresh so organisations/teams appear
+  useEffect(() => {
+    const membershipCount = userMemberships?.data?.length ?? 0;
+    if (orgsIsLoaded && membershipCount > 0) {
+      void refreshSession(true);
+    }
+  }, [orgsIsLoaded, userMemberships?.data?.length, refreshSession]);
+
   return (
     <ClerkSessionContext.Provider
       value={{
