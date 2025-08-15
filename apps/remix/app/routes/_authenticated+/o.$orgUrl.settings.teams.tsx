@@ -38,7 +38,10 @@ export default function OrganisationSettingsTeamsPage() {
 
   return (
     <div>
-      <SettingsHeader title={t`Teams`} subtitle={t`Manage the teams in this organisation.`}>
+      <SettingsHeader
+        title={t`Teams`}
+        subtitle={t`Manage the teams in this Clerk organization. Teams are workspaces where members collaborate on documents and templates.`}
+      >
         <TeamCreateDialog />
       </SettingsHeader>
 

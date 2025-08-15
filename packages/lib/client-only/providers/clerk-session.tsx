@@ -209,11 +209,13 @@ export const ClerkSessionProvider = ({ children }: ClerkSessionProviderProps) =>
           try {
             for (const membership of userMemberships.data) {
               const clerkOrg = membership.organization;
+              const memberRole = membership.role;
               await trpc.organisation.internal.syncClerkOrgUnauthenticated.mutate({
                 clerkOrgId: clerkOrg.id,
                 name: clerkOrg.name,
                 url: clerkOrg.slug || clerkOrg.id,
                 clerkUserId: userId, // Pass the Clerk user ID for lookup
+                userRole: memberRole, // Pass the user's role in the organization
               });
             }
             console.log(

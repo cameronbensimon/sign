@@ -5,6 +5,7 @@ import { msg } from '@lingui/core/macro';
 import { useLingui } from '@lingui/react';
 import { Trans } from '@lingui/react/macro';
 import type * as DialogPrimitive from '@radix-ui/react-dialog';
+import { ExternalLink } from 'lucide-react';
 import { useForm } from 'react-hook-form';
 import { useSearchParams } from 'react-router';
 import type { z } from 'zod';
@@ -182,9 +183,43 @@ export const TeamCreateDialog = ({ trigger, onCreated, ...props }: TeamCreateDia
           </DialogTitle>
 
           <DialogDescription>
-            <Trans>Create a team to collaborate with your team members.</Trans>
+            <Trans>
+              Create a team to collaborate with your team members within your Clerk organization.
+            </Trans>
           </DialogDescription>
         </DialogHeader>
+
+        {dialogState !== 'loading' && (
+          <div className="border-muted bg-muted/30 rounded-lg border p-4">
+            <div className="flex items-start gap-3">
+              <div className="mt-0.5 text-blue-600">
+                <ExternalLink className="h-4 w-4" />
+              </div>
+              <div className="space-y-2">
+                <h4 className="text-sm font-medium">
+                  <Trans>Teams within Clerk Organizations</Trans>
+                </h4>
+                <p className="text-muted-foreground text-sm">
+                  <Trans>
+                    Teams are workspaces within your Clerk organization. All team members must first
+                    be invited to the organization through your Clerk dashboard, then they can
+                    access teams based on their permissions.
+                  </Trans>
+                </p>
+                <Button
+                  type="button"
+                  variant="outline"
+                  size="sm"
+                  onClick={() => window.open('https://dashboard.clerk.com/apps', '_blank')}
+                  className="mt-2"
+                >
+                  <ExternalLink className="mr-1 h-3 w-3" />
+                  <Trans>Manage Organization in Clerk</Trans>
+                </Button>
+              </div>
+            </div>
+          </div>
+        )}
 
         {dialogState === 'loading' && <SpinnerBox className="py-32" />}
 

@@ -5,7 +5,7 @@ import type { Recipient, Template, TemplateDirectLink } from '@prisma/client';
 import { Copy, Edit, FolderIcon, MoreHorizontal, Share2Icon, Trash2, Upload } from 'lucide-react';
 import { Link } from 'react-router';
 
-import { useSession } from '@documenso/lib/client-only/providers/clerk-session';
+import { useAuthenticatedUser } from '@documenso/lib/client-only/providers/clerk-session';
 import {
   DropdownMenu,
   DropdownMenuContent,
@@ -36,7 +36,7 @@ export const TemplatesTableActionDropdown = ({
   teamId,
   onDelete,
 }: TemplatesTableActionDropdownProps) => {
-  const { user } = useSession();
+  const { user } = useAuthenticatedUser();
 
   const [isDeleteDialogOpen, setDeleteDialogOpen] = useState(false);
   const [isTemplateDirectLinkDialogOpen, setTemplateDirectLinkDialogOpen] = useState(false);

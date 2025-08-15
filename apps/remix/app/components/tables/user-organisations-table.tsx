@@ -5,7 +5,7 @@ import { useLingui } from '@lingui/react';
 import { Trans } from '@lingui/react/macro';
 import { Link } from 'react-router';
 
-import { useSession } from '@documenso/lib/client-only/providers/clerk-session';
+import { useAuthenticatedUser } from '@documenso/lib/client-only/providers/clerk-session';
 import { NEXT_PUBLIC_WEBAPP_URL } from '@documenso/lib/constants/app';
 import { ORGANISATION_MEMBER_ROLE_MAP } from '@documenso/lib/constants/organisations-translations';
 import { formatAvatarUrl } from '@documenso/lib/utils/avatars';
@@ -22,7 +22,7 @@ import { OrganisationLeaveDialog } from '../dialogs/organisation-leave-dialog';
 
 export const UserOrganisationsTable = () => {
   const { _, i18n } = useLingui();
-  const { user, organisations } = useSession();
+  const { user, organisations } = useAuthenticatedUser();
 
   const { data, isLoading, isLoadingError } = trpc.organisation.getMany.useQuery(undefined, {
     initialData: organisations.map((org) => ({

@@ -8,7 +8,7 @@ import { Link } from 'react-router';
 import { match } from 'ts-pattern';
 
 import { useUpdateSearchParams } from '@documenso/lib/client-only/hooks/use-update-search-params';
-import { useSession } from '@documenso/lib/client-only/providers/clerk-session';
+import { useAuthenticatedUser } from '@documenso/lib/client-only/providers/clerk-session';
 import { isDocumentCompleted } from '@documenso/lib/utils/document';
 import { formatDocumentsPath } from '@documenso/lib/utils/teams';
 import type { TFindDocumentsResponse } from '@documenso/trpc/server/document-router/schema';
@@ -171,7 +171,7 @@ type DataTableTitleProps = {
 };
 
 const DataTableTitle = ({ row, teamUrl }: DataTableTitleProps) => {
-  const { user } = useSession();
+  const { user } = useAuthenticatedUser();
 
   const recipient = row.recipients.find((recipient) => recipient.email === user?.email);
 

@@ -19,13 +19,14 @@ const ZSyncClerkOrgWithUserSchema = z.object({
   name: z.string(),
   url: z.string(),
   clerkUserId: z.string(),
+  userRole: z.string().optional(), // User's role in the Clerk organization
 });
 
 // Unauthenticated version for initial session setup
 export const syncClerkOrganizationUnauthenticated = procedure
   .input(ZSyncClerkOrgWithUserSchema)
   .mutation(async ({ input }) => {
-    const { clerkOrgId, name, url, clerkUserId } = input;
+    const { clerkOrgId, name, url, clerkUserId, userRole } = input;
 
     // Find the user by Clerk ID
     const user = await prisma.user.findUnique({
@@ -248,13 +249,23 @@ async function syncOrganizationInternal({
   const teamCount = await prisma.team.count({ where: { organisationId: organisation.id } });
   if (teamCount === 0) {
     try {
+      // Create a default team with the organization name
+      const defaultTeamName =
+        organisation.type === OrganisationType.ORGANISATION
+          ? `${organisation.name} Team`
+          : 'General';
+
       await createTeam({
         userId,
-        teamName: 'General',
+        teamName: defaultTeamName,
         teamUrl: prefixedId('team'),
         organisationId: organisation.id,
         inheritMembers: true,
       });
+
+      console.log(
+        `syncClerkOrg: created default team "${defaultTeamName}" for organization ${organisation.name}`,
+      );
     } catch (err) {
       console.error('syncClerkOrg: failed creating default team', err);
     }
